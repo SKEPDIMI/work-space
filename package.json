@@ -2,6 +2,7 @@
   "name": "work-space",
   "description": "A platform to share educational resources amongst students.",
   "version": "0.1.0",
+  "homepage": "https://johncdf.github.io/WorkSpace",
   "private": true,
   "dependencies": {
     "react": "^16.2.0",
