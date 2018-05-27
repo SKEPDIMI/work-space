@@ -13,7 +13,7 @@ return(
 
       <div class="col-md-6 mb-md-0 mb-3">
 
-        <h5 class="text-uppercase">Links</h5>
+        <h5 class="text-uppercase"> </h5>
 
         <ul class="list-unstyled">
           <li>
