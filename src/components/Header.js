@@ -31,9 +31,9 @@ class Header extends Component {
             <Link to="/landing">WorkSpace</Link>
         </div>
         <div className="header-main__right">
-        <Link to="/teams"><i className="fa fa-users"></i>Teams</Link>
-        <Link to="/about"><i className="fa fa-info-circle"></i>About</Link>
-        <Link to="/auth"><i className="fa fa-sign-in"></i>Sign Up</Link>
+        <Link to="/teams"><i></i>Teams</Link>
+        <Link to="/about"><i></i>About</Link>
+        <Link to="/signin"><i></i>Sign In</Link>
         <button className="btn fa fa-bars" onClick={this.toggleSide}></button>
         </div>
         </header>
