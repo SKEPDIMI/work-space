@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Style} from '../assets/stylesheets/landing.css';
-import {Animation} from '../assets/stylesheets/animations.css';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';

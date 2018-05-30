@@ -7,14 +7,12 @@ class Sidemenu extends Component {
             <div id="sideMenu">
                 <header id="sideMenu__head">
                 <img src={Logo} alt="WS"/>
-                <hr/>
-                <h2>WorkSpace</h2>
                 </header>
                 <button className="btn">
-                    Popular teams
+                    Popular Spaces
                 </button>
                 <button className="btn">
-                    Create a team
+                    Create a Space
                 </button>
             </div>
         );

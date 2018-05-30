@@ -1,0 +1,138 @@
+.header-master {
+  position: absolute;
+  top:0;
+  left:0;
+  right:0;
+}
+.header-main{
+  background: #3cd4f2;
+  box-shadow: 2px 2px 2px black;
+  width:100%;
+  display: inline-flex;
+  justify-content: space-between;
+  height:11vh;
+}
+.header-main__left{
+  width: 25%;
+  float:left;
+  margin-right:auto;
+  padding: 0 10px;
+  height: 100%;
+  background: white;
+  color: #2a2a2a;
+  text-align: center;
+  overflow: hidden;
+  transition: .2s all ease-in-out;
+}
+.header-main__left a{
+  color: #032f3a;
+}
+.header-main__left * {
+  height: 100%;
+  line-height: 100%;
+  margin: 0 20px;
+  font-size: 1.5em;
+}
+.header-main__right{
+  width: 70%;
+  float:right;
+  margin-left:auto;
+  padding: 0 10px;
+  height: 100%;
+  background: #2a2a2a;
+  color: white;
+  text-align: center;
+  display: inline-flex;
+  justify-content: space-around;
+  transition: .5s all ease-in-out;
+}
+.header-main__right a {
+  line-height: 11vh;
+  background: #2a2a2a;
+  color: white;
+}
+.header-main__right .btn {
+  background: #2a2a2a;
+  color: white;
+}
+.header-main a i {
+  border-radius: 50%;
+  color: white;
+  background: #2a2a2a;
+  font-size: 1.2em;
+}
+
+.header-main__left:hover{
+  width: 30%;
+}
+.header-main__right:hover{
+  width:100%;
+}
+
+
+.header-pre {
+  background:#032f3a;
+  color: white;
+  width:100%;display: inline-flex;
+  justify-content: right;
+}
+.header-pre a {
+  margin:0 10px;
+  color: white;
+}
+
+@media screen and (max-width: 520px){
+  .header-main__left a {
+      width: 0;
+  }
+}
+@media screen and (max-width: 375px){
+  .header-main__left {
+      display: none;
+  }
+  .header-main__right {
+      width:100%;
+  }
+}
+
+#sideMenu {
+  display: none;
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  background:#2a2a2a;
+  color: white;
+  overflow-x: hidden;
+  max-width: 50%;
+  z-index: 10;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 2px black;
+}
+#sideMenu__head {
+  text-align: center;
+  width: 100%;
+  background: white;
+  padding-bottom: 1em;
+}
+#sideMenu .btn {
+  width:100%;
+  background: inherit;
+  min-height: 10vh;
+  border-bottom: 1px solid white;
+  transition: .2s all ease-in-out;
+}
+#sideMenu .btn:hover {
+  color: grey;
+}
+
+.slide{
+  width:100%;
+  height:100vh;
+  text-align: center;
+}
+
+.lock-scroll {
+  overflow: hidden !important;
+  max-height:100vh !important;
+}
