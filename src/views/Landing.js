@@ -7,12 +7,18 @@ import Footer from '../components/Footer';
 import Typewriter from '../components/Typewriter';
 import Sidemenu from '../components/Sidemenu';
 
+import store from '../redux/store';
+
 class Landing extends Component {
     constructor(props){
       super(props);
-      this.state = {};
+      this.state = ({user:{}});
     };
     render(){
+        store.subscribe(() => {
+            let user = store.getState();
+            this.setState(user);
+        })
         return(
             <div>
                 <Header/>

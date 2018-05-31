@@ -2,8 +2,13 @@ import React, {Component} from 'react';
 import {BrowserRouter,Route,Switch,Redirect} from 'react-router-dom';
 
 import Landing from '../views/Landing';
-import Teams from '../views/Teams';
-import SignIn from '../forms/SignIn';
+import PopularSpaces from '../views/PopularSpaces';
+import LogIn from '../forms/LogIn';
+import Me from '../views/Me';
+import Loading from '../views/Loading';
+import LogOut from '../views/LogOut';
+
+import store from '../redux/store';
 
 class Routes extends Component {
 render(){
@@ -13,9 +18,12 @@ return(
     <Route exact path="/" render={() => (
       <Redirect to="/landing"/>
     )}/>
-    <Route exact path="/landing" component={Landing}/>
-    <Route exact path="/teams" component={Teams}/>
-    <Route exact path="/signin" component={SignIn}/>
+    <Route path="/landing" component={Landing}/>
+    <Route path="/popular/spaces" component={PopularSpaces}/>
+    <Route path="/login" component={LogIn}/>
+    <Route path="/logout" component={LogOut}/>
+    <Route path="/me" component={Me} />
+
   </Switch>
   </BrowserRouter>
 );

@@ -12,7 +12,10 @@ class Sidemenu extends Component {
                     Popular Spaces
                 </button>
                 <button className="btn">
-                    Create a Space
+                    My Spaces
+                </button>
+                <button className="btn">
+                    Create A Space
                 </button>
             </div>
         );

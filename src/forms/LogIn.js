@@ -19,8 +19,18 @@ return(
       <form method="get" action="/api/users">
       <div className="form-control">
       <label>Username</label>
-      <input placeholder="Enter your username"/>
+      <input placeholder="Username"/>
       </div>
+      <div className="form-control">
+      <label>Email</label>
+      <input placeholder="Email"/>
+      </div>
+      <div className="form-control">
+      <label>Password</label>
+      <input placeholder="Password"/>
+      </div>
+
+      <button type="submit" className="btn btn-info"/>
       </form>
     </div>
   </div>
