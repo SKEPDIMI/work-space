@@ -1,7 +1,7 @@
 import { createStore } from 'redux';
 import reducer from './reducers';
 
-let initialState = undefined;
+let initialState = 'pending';
 
 const store = createStore(reducer, initialState);
 

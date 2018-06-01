@@ -25,12 +25,6 @@ class Header extends Component {
     $('#sideMenu').stop().animate({
       'width' : 'toggle'
     });
-    if ($('body').hasClass('lock-scroll')) {
-      $('body').removeClass('lock-scroll');
-    }
-    else {
-        $('body').addClass('lock-scroll');
-    }
   }
   render() {
     return (

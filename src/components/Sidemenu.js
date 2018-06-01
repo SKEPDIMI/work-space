@@ -8,15 +8,10 @@ class Sidemenu extends Component {
                 <header id="sideMenu__head">
                 <img src={Logo} alt="WS"/>
                 </header>
-                <button className="btn">
-                    Popular Spaces
-                </button>
-                <button className="btn">
-                    My Spaces
-                </button>
-                <button className="btn">
-                    Create A Space
-                </button>
+                <ul>
+                    <li><a href="">Popular Spaces</a></li>
+                    <li><a href="">My Spaces</a></li>
+                </ul>
             </div>
         );
     }

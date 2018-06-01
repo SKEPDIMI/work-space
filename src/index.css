@@ -1,4 +1,6 @@
 body {
+  min-height:100vh;
+  padding-top:13vh;
   font-family: 'Arial', Helvetica, sans-serif;
 }
  

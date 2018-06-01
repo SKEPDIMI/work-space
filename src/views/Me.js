@@ -23,7 +23,9 @@ class Me extends Component {
   }
 render(){
   {
-     if (!this.state.user) {
+    if (this.state.user === 'pending') {
+      return(<Loading/>)
+    } else if (this.state.user === undefined) {
       return(<div><Header/><Sidemenu/>
           <h1>You are not logged in</h1>
           <a href="/">Back home</a>

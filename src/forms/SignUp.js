@@ -28,9 +28,9 @@ class SignIn extends Component {
       }
     };
 
-    axios.post(config.apiURL+'/api/auth', data)
+    axios.post(config.apiURL+'/api/users', data)
     .then(response=>{
-      $(".form-modal").addClass('success').text('Log in was successful!!');
+      $(".form-modal").addClass('success').text('Signed in successfully!');
 
       localStorage.setItem('workspaceToken', JSON.stringify({token:response.data.token}));
       window.location = '/';
@@ -53,13 +53,17 @@ return(
 <div className="container wrapper">
   <div className="row"> 
     <div className="col">
-      <h1>Welcome back!</h1>
+      <h1>Welcome to WorkSpace!</h1>
       <hr/>
       <span className="form-modal">Logged in!</span>
     </div>
 
     <div className="col-8">
       <form onSubmit={this.formSubmit}>
+      <div className="form-group">
+      <label>Username</label>
+      <input name="username" className="form-control" type="text" placeholder="Public username" required/>
+      </div>
       <div className="form-group">
       <label>Email</label>
       <input name="email" className="form-control" type="email" placeholder="Email" required/>
@@ -69,7 +73,7 @@ return(
       <input name="password" className="form-control" type="password" placeholder="Password" required/>
       </div>
 
-      <button type="submit" className="btn btn-info">Log In</button>
+      <button type="submit" className="btn btn-info">Sign Up</button>
       </form>
     </div>
   </div>
