@@ -19,7 +19,7 @@ class SignIn extends Component {
     event.preventDefault()
     let form = event.target;
     let elements = form.elements;
-
+    
     let data = {};
     for (let i = 0; i < elements.length; i++) {
       let currentElement = elements[i];
@@ -28,6 +28,8 @@ class SignIn extends Component {
       }
     };
 
+    $(".form-modal").addClass("success").text("Loggin in...")
+    
     axios.post(config.apiURL+'/api/auth', data)
     .then(response=>{
       localStorage.setItem('workspaceToken', JSON.stringify({token:response.data.token}));

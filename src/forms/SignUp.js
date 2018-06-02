@@ -28,6 +28,8 @@ class SignIn extends Component {
       }
     };
 
+    $(".form-modal").addClass("success").text("Creating Account...")
+    
     axios.post(config.apiURL+'/api/users', data)
     .then(response=>{
       $(".form-modal").addClass('success').text('Signed in successfully!');
