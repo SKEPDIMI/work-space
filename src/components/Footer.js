@@ -17,10 +17,10 @@ return(
 
         <ul className="list-unstyled">
           <li>
-            <a href="#!">Home</a>
+            <a href="/">Home</a>
           </li>
           <li>
-            <a href="#!">Account</a>
+            <a href="/me">Account</a>
           </li>
           <li>
             <a href="#!">Open Source</a>

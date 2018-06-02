@@ -5,9 +5,11 @@ body {
 }
  
 a {
-  color: inherit !important;
+  color: rgb(177, 177, 177);
 }
-
+a:hover {
+  color:white;
+}
 footer {
   background: rgb(41, 41, 41);
   color: white;

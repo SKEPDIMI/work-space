@@ -102,6 +102,10 @@
   padding:1vh 2.3vh;
   transition: .2s all ease-in-out;
 }
+.header-main__right a:hover {
+  text-decoration: none;
+  color: rgb(170, 170, 170);
+}
 .header-main__right .login:hover {
   background: transparent;
   color:white !important;
@@ -146,16 +150,16 @@
   text-align: center;
   width: 100%;
   background: white;
-  padding-bottom: 1em;
 }
 #sideMenu ul {
   padding:0;
   margin:0;
+  min-width:30vw;
 }
 #sideMenu ul li {
   display: block;
-  border-bottom: 1px solid white;
-  transition: .5s all ease-in-out;
+  border-bottom: 1px solid rgb(198, 198, 198);
+  transition: .2s all ease-in-out;
   padding:10px;
 }
 #sideMenu a {

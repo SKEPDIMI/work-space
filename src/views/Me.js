@@ -20,21 +20,14 @@ class Me extends Component {
   formSubmit(event){
     event.preventDefault();
     let form = event.target;
-    let elements = form.elements;
-    
-    let data = {};
-    for (let i = 0; i < elements.length; i++) {
-      let currentElement = elements[i];
-      if (currentElement.type != 'submit'){
-        data[currentElement.name] = currentElement.value;
-      }
-    };
 
     $(".form-modal").addClass("success").text("Saving changes...")
     
-    axios.put(config.apiURL+'/api/users', data)
+      var formData = new FormData(event.target);
+    
+    axios(config.apiURL+'/api/users', { method:'put', body:formData, headers: {'content-type' : 'multipart/form-data'} })
     .then(response=>{
-      $(".form-modal").addClass('failure').text('Changes have been saved.');
+      $(".form-modal").addClass('success').text('Changes have been saved.');
       $("form button.btn-info").prop("disabled",true);
     })
     .catch(error=>{
@@ -74,7 +67,7 @@ render(){
           <header>
             <img src={avatar}/> <p>{this.state.user.username}</p>
           </header>
-          <form onSubmit={this.formSubmit} onChange={this.onEnabled} className="container">
+          <form onSubmit={this.formSubmit} onChange={this.onEnabled} className="container" encType="multipart/form-data">
           <p className="form-modal"></p>
           <div className="form-group">
             <label>Email</label>
@@ -89,6 +82,11 @@ render(){
               <label>User name</label>
               <input name="newUsername" className="form-control" defaultValue={this.state.user.username}/>
             </div>
+            <div className="form-group">
+
+            </div>
+            <label>Profile picture</label>
+              <input name="image" id='form-avatar' className="form-control" type="file" accept="image/*"/>
             <div className="form-group">
               <label>Bio</label>
               <textarea name="bio" className="form-control" defaultValue={this.state.user.bio}></textarea>
