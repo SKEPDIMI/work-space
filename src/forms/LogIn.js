@@ -1,18 +1,21 @@
 import React, {Component} from 'react';
-import $ from 'jquery';
 import config from '../config';
-
 import axios from 'axios';
-import store from '../redux/store';
-
 import Header from '../components/Header.js';
+import store from '../redux/store';
 import Footer from '../components/Footer.js';
 import Sidemenu from '../components/Sidemenu.js';
 
 class SignIn extends Component {
+  constructor(props){
+    super(props);
+    this.state = { formSuccess: false, formError: "" };
+    this.formSubmit = this.formSubmit.bind(this);
+  }
   componentWillMount(){
     // this is checking whether a user is signed in
-    if (store.getState() != undefined) {
+
+    if (typeof store.getState().user === "object") {
       window.location = '/'
     }
   }
@@ -29,23 +32,18 @@ class SignIn extends Component {
       }
     };
 
-    $(".form-modal").addClass("success").text("Loggin in...")
+    this.setState({ formSuccess: error.response.data.message || 'Logging in...', formError: false })
 
     axios.post(config.apiURL+'/api/auth', data)
       .then(response=>{
         localStorage.setItem('workspaceToken', JSON.stringify({token:response.data.token}));
-        window.location = '/';
+        window.location = '/'; // maybe this should be setting the global state as well so that redirecting doesn't go into a loop
       })
       .catch(error=>{
-        $(".form-modal").addClass('failure').text(error.response.data.message || 'Failed to log in!');
+        this.setState({ formError: error.response.data.message || 'Failed to log in!' })
       })
-
   }
-  constructor(props){
-    super(props);
-    this.state = {};
-    this.formSubmit = this.formSubmit.bind(this);
-  };
+
   render(){
     return(
       <div>
@@ -56,7 +54,8 @@ class SignIn extends Component {
             <div className="col">
               <h1>Welcome back!</h1>
               <hr/>
-              <span className="form-modal">Logged in!</span>
+              {this.state.formError ? <span className="form-modal error">{this.state.formError}</span> : ""}
+              {this.state.formSuccess ? <span className="form-modal success">{this.state.formSuccess}</span> : ""}
             </div>
 
             <div className="col-8">
