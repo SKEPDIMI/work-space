@@ -1,6 +1,6 @@
 const reducer = (state = {}, action) => {
   if (action.type === 'ADD_USER') {
-    return action.payload
+    return { ...state, currentUser: action.payload }
   } else {
     return state
   }
