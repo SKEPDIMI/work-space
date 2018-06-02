@@ -9,7 +9,6 @@ import config from './config';
 import store from './redux/store.js';
 import addUser from './redux/actions';
 
-
 class App extends Component {
   componentDidMount(){
     if (localStorage.getItem('workspaceToken')) {// IF THE USER HAS A TOKEN, VERIFY IT AND GET THE USER DATA FROM API
@@ -20,28 +19,28 @@ class App extends Component {
           'Access-Control-Allow-Origin': '*'
         }
       })
-      .then(response=>{
-        this.setState({done:true})
-        store.dispatch(addUser(response.data));
-      })
-      .catch(error=>{
-        this.setState({done:true})
-        store.dispatch(addUser(undefined));
-      });
+        .then(response=>{
+          this.setState({done:true})
+          store.dispatch(addUser(response.data));
+        })
+        .catch(error=>{
+          this.setState({done:true})
+          store.dispatch(addUser(null));
+        });
     } else {
       this.setState({done:true});
-      store.dispatch(addUser(undefined))
+      store.dispatch(addUser(null))
     }
   }
   constructor(props){
     super(props);
     this.state = {done:false};
   };
-render(){
-return(
-this.state.done ? <Routes/> : <Loading/>
-);
-}
+  render(){
+    return(
+      this.state.done ? <Routes /> : <Loading />
+    );
+  }
 };
 
 export default App;
