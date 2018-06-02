@@ -30,8 +30,6 @@ class SignIn extends Component {
 
     axios.post(config.apiURL+'/api/auth', data)
     .then(response=>{
-      $(".form-modal").addClass('success').text('Log in was successful!!');
-
       localStorage.setItem('workspaceToken', JSON.stringify({token:response.data.token}));
       window.location = '/';
     })
