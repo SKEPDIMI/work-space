@@ -10,11 +10,9 @@ class LogOut extends Component {
     localStorage.removeItem("workspaceToken");
     window.location = '/';
   }
-render(){
-return(
-<Loading/>
-);
-}
+  render(){
+    return(<Loading/>);
+  }
 };
 
 export default LogOut;
