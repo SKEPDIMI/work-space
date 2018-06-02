@@ -1,7 +1,17 @@
-.account-dashboard {
-  background: grey;
-}
+
 .account-dashboard header {
   background: #1c465d;
   color:white;
+  height:12vh;
+  padding:10px;
+  display:inline-flex;
+  width:100%;
+  justify-content: space-between;
+}
+.account-dashboard header img {
+  height:100%;
+  border-radius: 50%;
+}
+.account-dashboard header p {
+  margin: auto 0;
 }
