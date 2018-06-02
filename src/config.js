@@ -1,7 +1,8 @@
-let apiURL = process.env.production ?
+let apiURL = process.NODE_ENV == 'production'?
   'https://workspace-api.herokuapp.com' : 'http://localhost:5000';
 
 
 export default {
   apiURL : apiURL
 }
+
