@@ -9,7 +9,7 @@ import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
 import Sidemenu from '../components/Sidemenu.js';
 
-class SignIn extends Component {
+class SignUp extends Component {
   componentWillMount(){
     // this is checking whether a user is signed in
     if (store.getState() != undefined) {
@@ -87,4 +87,4 @@ class SignIn extends Component {
   }
 };
 
-export default SignIn;
+export default SignUp;
