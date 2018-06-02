@@ -11,6 +11,7 @@ import Sidemenu from '../components/Sidemenu.js';
 
 class SignIn extends Component {
   componentWillMount(){
+    // this is checking whether a user is signed in
     if (store.getState() != undefined) {
       window.location = '/'
     }
