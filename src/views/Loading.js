@@ -6,10 +6,10 @@ render(){
 return(
 <div className="loading-screen">
   <div className="inner-wrapper">
-  <img src={Logo}/>
-  <h1>Work Space</h1>
-  <hr/>
-  <span>Is Now Loading</span>
+    <img src={Logo} alt="Loading.."/>
+    <h1>Work Space</h1>
+    <hr/>
+    <span>Is Now Loading</span>
   </div>
 </div>
 );

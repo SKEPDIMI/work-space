@@ -12,9 +12,6 @@ return(
       </div>
 
       <div className="col-md-6 mb-md-0 mb-3">
-
-        <h5 className="text-uppercase"> </h5>
-
         <ul className="list-unstyled">
           <li>
             <a href="/">Home</a>

@@ -1,8 +1,10 @@
-const reducer = (state = {}, action) => {
-  if (action.type === 'ADD_USER') {
-    return action.payload
-  } else {
-    return state
-  }
-};
-export default reducer;
+import { combineReducers } from "redux";
+import userReducer from './userReducer';
+import popularSpacesReducer from './popularSpacesReducer';
+
+const reducers = combineReducers({
+  user: userReducer,
+  popularSpaces: popularSpacesReducer
+});
+
+export default reducers;

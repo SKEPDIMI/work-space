@@ -6,11 +6,7 @@ import PopularSpaces from '../views/PopularSpaces';
 import LogIn from '../forms/LogIn';
 import SignUp from '../forms/SignUp';
 import Me from '../views/Me';
-import Loading from '../views/Loading';
 import LogOut from '../views/LogOut';
-
-import store from '../redux/store';
-import SignIn from '../forms/SignUp';
 
 class Routes extends Component {
 render(){

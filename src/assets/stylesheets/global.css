@@ -1,5 +1,4 @@
 .header-master {
-  position: fixed;
   top:0;
   left:0;
   right:0;
@@ -123,6 +122,11 @@
   color:#2a2a2a !important;
   text-decoration: none;
 }
+@media screen and (max-width: 575px) {
+  .signup {
+    display: none;
+  }
+}
 @media screen and (max-width: 511px){
   .header-main__left {
       display: none;
@@ -206,6 +210,10 @@
   100% {
     transform: rotateZ(360deg)
   }
+}
+
+.content {
+  margin-top: 1em;
 }
 
 .form-modal {

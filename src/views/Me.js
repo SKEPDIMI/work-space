@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import Loading from './Loading';
+import { connect } from 'react-redux';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Sidemenu from '../components/Sidemenu';
@@ -11,8 +11,6 @@ import config from '../config';
 import '../assets/stylesheets/account.css';
 import avatar from '../assets/avatar.png';
 
-import store from '../redux/store';
-
 class Me extends Component {
   onEnabled(){
     $("form button.btn-info").prop("disabled",false);
@@ -23,7 +21,7 @@ class Me extends Component {
 
     $(".form-modal").addClass("success").text("Saving changes...")
     
-      var formData = new FormData(event.target);
+      var formData = new FormData(form);
     
     axios(config.apiURL+'/api/users', { method:'put', body:formData, headers: {'content-type' : 'multipart/form-data'} })
     .then(response=>{
@@ -36,42 +34,35 @@ class Me extends Component {
   }
   constructor(props){
     super(props);
-    this.state = {user:store.getState()};
 
     this.formSubmit = this.formSubmit.bind(this);
     this.onEnabled = this.onEnabled.bind(this);
   };
-  componentWillMount(){
-    store.subscribe(()=>{
-      let user = store.getState();
-
-      user ? this.setState({user}) : this.setState({user:undefined});
-    });
-  }
 render(){
-  {
-    if (this.state.user === 'pending') {
-      return(<Loading/>)
-    } else if (this.state.user === undefined) {
-      return(<div><Header/><Sidemenu/>
-      <div className="wrapper">
-          <h1>You are not logged in</h1>
-          <a href="/">Back home</a>
+    if (!this.props.user) {
+      return(
+      <div>
+        <Header/><Sidemenu/>
+        <div className="wrapper">
+            <h1>You are not logged in</h1>
+            <a href="/">Back home</a>
+        </div>
+        <Footer/>
       </div>
-        <Footer/></div>)
+      )
     } else {
       return(
         <div>
         <Header/><Sidemenu/>
         <div className="account-dashboard">
           <header>
-            <img src={avatar}/> <p>{this.state.user.username}</p>
+            <img src={avatar} alt="avatar"/><p>{this.props.user.username}</p>
           </header>
           <form onSubmit={this.formSubmit} onChange={this.onEnabled} className="container" encType="multipart/form-data">
           <p className="form-modal"></p>
           <div className="form-group">
             <label>Email</label>
-            <input name="email" className="form-control" type="email" value={this.state.user.email} required readonly/>
+            <input name="email" className="form-control" type="email" value={this.props.user.email} required readOnly/>
           </div>
           <div className="form-group">
             <label>Password</label>
@@ -80,7 +71,7 @@ render(){
           <hr/>
             <div className="form-group">
               <label>User name</label>
-              <input name="newUsername" className="form-control" defaultValue={this.state.user.username}/>
+              <input name="newUsername" className="form-control" defaultValue={this.props.user.username}/>
             </div>
             <div className="form-group">
 
@@ -89,7 +80,7 @@ render(){
               <input name="image" id='form-avatar' className="form-control" type="file" accept="image/*"/>
             <div className="form-group">
               <label>Bio</label>
-              <textarea name="bio" className="form-control" defaultValue={this.state.user.bio}></textarea>
+              <textarea name="bio" className="form-control" defaultValue={this.props.user.bio}></textarea>
             </div>
 
             <button className="btn btn-info" type="submit" disabled>Update</button>
@@ -99,8 +90,13 @@ render(){
         </div>
       )
     }
-  }
 }
 };
 
-export default Me;
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps)(Me);
