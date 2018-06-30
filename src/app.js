@@ -17,11 +17,7 @@ class App extends Component {
   componentDidMount(){
     if (localStorage.getItem('workspaceToken')) { // IF THE USER HAS A TOKEN, VERIFY IT AND GET THE USER DATA FROM API
       let workspaceData = JSON.parse(localStorage.getItem('workspaceToken'));
-      axios.get(config.apiURL + '/api/auth', {
-        headers: {
-          'token': workspaceData.token
-        }
-      })
+      axios.get(config.apiURL + '/api/auth?token=' + workspaceData.token)
       .then(response=>{
         this.setState({done:true});
         store.dispatch(setUser(response.data));

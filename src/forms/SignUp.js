@@ -17,29 +17,20 @@ class SignIn extends Component {
   }
   formSubmit(event){
     event.preventDefault()
-    let form = event.target;
-    let elements = form.elements;
-
-    let data = {};
-    for (let i = 0; i < elements.length; i++) {
-      let currentElement = elements[i];
-      if (currentElement.type !== 'submit'){
-        data[currentElement.name] = currentElement.value;
-      }
-    };
+    let formData = new FormData(event.target);
 
     $(".form-modal").addClass("success").text("Creating Account...")
-    
-    axios.post(config.apiURL+'/api/users', data)
-    .then(response=>{
-      $(".form-modal").addClass('success').text('Signed in successfully!');
 
-      localStorage.setItem('workspaceToken', JSON.stringify({token:response.data.token}));
-      window.location = '/';
-    })
-    .catch(error=>{
-      $(".form-modal").addClass('failure').text(error.response.data.message || 'Failed to log in!');
-    })
+    axios.post(config.apiURL+'/api/users', formData)
+      .then(response=>{
+        $(".form-modal").addClass('success').text('Signed in successfully!');
+
+        localStorage.setItem('workspaceToken', JSON.stringify({token:response.data.token}));
+        window.location = '/';
+      })
+      .catch(error=>{
+        $(".form-modal").addClass('failure').text(error.response.data.message || 'Failed to log in!');
+      })
 
   }
   constructor(props){
@@ -53,7 +44,7 @@ class SignIn extends Component {
       <Header/>
       <Sidemenu/>
       <div className="container wrapper">
-        <div className="row"> 
+        <div className="row">
           <div className="col">
             <h1>Welcome to WorkSpace!</h1>
             <hr/>
@@ -61,18 +52,22 @@ class SignIn extends Component {
           </div>
 
           <div className="col-8">
-            <form onSubmit={this.formSubmit}>
+            <form onSubmit={this.formSubmit} encType="multipart/form-data">
             <div className="form-group">
-            <label>Username</label>
-            <input name="username" className="form-control" type="text" placeholder="Public username" required/>
+              <label>Username</label>
+              <input name="username" className="form-control" type="text" placeholder="Public username" required/>
             </div>
             <div className="form-group">
-            <label>Email</label>
-            <input name="email" className="form-control" type="email" placeholder="Email" required/>
+              <label>Email</label>
+              <input name="email" className="form-control" type="email" placeholder="Email" required/>
             </div>
             <div className="form-group">
-            <label>Password</label>
-            <input name="password" className="form-control" type="password" placeholder="Password" required/>
+              <label>Password</label>
+              <input name="password" className="form-control" type="password" placeholder="Password" required/>
+            </div>
+            <div className="form-group">
+              <label>Profile picture</label>
+              <input name="avatar" className="form-control" type="file" accept="image/*"/>
             </div>
 
             <button type="submit" className="btn btn-info">Sign Up</button>

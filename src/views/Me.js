@@ -17,20 +17,21 @@ class Me extends Component {
   }
   formSubmit(event){
     event.preventDefault();
-    let form = event.target;
-
     $(".form-modal").addClass("success").text("Saving changes...")
-    
-      var formData = new FormData(form);
-    
-    axios(config.apiURL+'/api/users', { method:'put', body:formData, headers: {'content-type' : 'multipart/form-data'} })
-    .then(response=>{
-      $(".form-modal").addClass('success').text('Changes have been saved.');
-      $("form button.btn-info").prop("disabled",true);
-    })
-    .catch(error=>{
-      $(".form-modal").addClass('failure').text(error.response.data.message || 'Failed to save changes!');
-    });
+
+    var formData = new FormData(event.target);
+
+    axios.put(config.apiURL+'/api/users', formData)
+      .then(response=>{
+        $(".form-modal").addClass('success').text('Changes have been saved.');
+        $("form button.btn-info").prop("disabled",true);
+        setTimeout(function(){
+          window.location.reload();
+        }, 500)
+      })
+      .catch(error=>{
+        $(".form-modal").addClass('failure').text(error.response.data.message || 'Failed to save changes!');
+      });
   }
   constructor(props){
     super(props);
@@ -56,7 +57,7 @@ render(){
         <Header/><Sidemenu/>
         <div className="account-dashboard">
           <header>
-            <img src={avatar} alt="avatar"/><p>{this.props.user.username}</p>
+            <img src={config.apiURL + "/api/user/image?email=" + this.props.user.email} alt="avatar"/><p>{this.props.user.username}</p>
           </header>
           <form onSubmit={this.formSubmit} onChange={this.onEnabled} className="container" encType="multipart/form-data">
           <p className="form-modal"></p>
@@ -77,7 +78,7 @@ render(){
 
             </div>
             <label>Profile picture</label>
-              <input name="image" id='form-avatar' className="form-control" type="file" accept="image/*"/>
+              <input name="avatar" className="form-control" type="file" accept="image/*"/>
             <div className="form-group">
               <label>Bio</label>
               <textarea name="bio" className="form-control" defaultValue={this.props.user.bio}></textarea>
