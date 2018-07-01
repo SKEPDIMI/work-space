@@ -17,27 +17,17 @@ class SignIn extends Component {
   }
   formSubmit(event){
     event.preventDefault()
-    let form = event.target;
-    let elements = form.elements;
-    
-    let data = {};
-    for (let i = 0; i < elements.length; i++) {
-      let currentElement = elements[i];
-      if (currentElement.type !== 'submit'){
-        data[currentElement.name] = currentElement.value;
-      }
-    };
-
+    let formData = new FormData(event.target);
     $(".form-modal").addClass("success").text("Logging in...")
-    
-    axios.post(config.apiURL+'/api/auth', data)
-    .then(response=>{
-      localStorage.setItem('workspaceToken', JSON.stringify({token:response.data.token}));
-      window.location = '/';
-    })
-    .catch(error=>{
-      $(".form-modal").addClass('failure').text(error.response.data.message || 'Failed to log in!');
-    })
+
+    axios.post(config.apiURL+'/api/auth', formData)
+      .then(response=>{
+        localStorage.setItem('workspaceToken', JSON.stringify({token:response.data.token}));
+        window.location = '/';
+      })
+      .catch(error=>{
+        $(".form-modal").addClass('failure').text(error.response.data.message || 'Failed to log in!');
+      })
 
   }
   constructor(props){
@@ -51,7 +41,7 @@ class SignIn extends Component {
       <Header/>
       <Sidemenu/>
       <div className="container wrapper">
-        <div className="row"> 
+        <div className="row">
           <div className="col">
             <h1>Welcome back!</h1>
             <hr/>

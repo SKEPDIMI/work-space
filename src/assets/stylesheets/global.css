@@ -122,19 +122,28 @@
   color:#2a2a2a !important;
   text-decoration: none;
 }
-@media screen and (max-width: 575px) {
+@media screen and (max-width: 600px) {
   .signup {
     display: none;
   }
 }
 @media screen and (max-width: 511px){
   .header-main__left {
-      display: none;
+  width: 15%;
   }
   .header-main__right {
-      width:100%;
+  width: 85%;
   }
 }
+@media screen and (max-width: 390px){
+  .header-main__left {
+    display: none;
+  }
+  .header-main__right {
+    width: 100%;
+  }
+}
+
 
 #sideMenu {
   display: none;
@@ -169,6 +178,7 @@
 #sideMenu a {
   font-size:large;
   text-decoration: none;
+  color: white;
 }
 #sideMenu ul li:hover {
   color: grey;
@@ -214,6 +224,7 @@
 
 .content {
   margin-top: 1em;
+  min-height: 50vh;
 }
 
 .form-modal {
