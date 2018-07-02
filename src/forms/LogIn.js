@@ -11,7 +11,7 @@ import Sidemenu from '../components/Sidemenu.js';
 
 class SignIn extends Component {
   componentWillMount(){
-    if (this.props.user) {
+    if (this.props.user === true) {
       window.location = '/'
     }
   }

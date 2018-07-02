@@ -8,12 +8,14 @@ export const setUser = userData => ({
 
 export const setPopularSpaces = () => {
   return dispatch => {
+    dispatch({type: 'SET_POPULAR_SPACES', payload: 'pending'});
+
     axios.get(config.apiURL + '/api/spaces?subscribed=2')
-      .then((response) => {
-        dispatch({type: 'SET_POPULAR_SPACES', payload: response.data});
-      })
-      .catch((err) => {
-        console.log(err.response.data)
-      });
+    .then((response) => {
+      dispatch({type: 'SET_POPULAR_SPACES', payload: response.data});
+    })
+    .catch((err) => {
+      dispatch({type: 'SET_POPULAR_SPACES', payload: []});
+    });
   };
 }

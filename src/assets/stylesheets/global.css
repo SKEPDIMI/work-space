@@ -191,7 +191,7 @@
   text-align: center;
 }
 
-.loading-screen {
+.loading-screen, .error-screen {
   z-index: 1000;
   position: fixed;
   top:0;
@@ -204,13 +204,13 @@
   justify-content: center;
   height: 100vh;
 }
-.loading-screen .inner-wrapper {
+.loading-screen, .error-screen > .inner-wrapper {
   color: rgb(114, 114, 114);
   font-weight: lighter;
   text-align: center;
   padding-bottom:10px;
 }
-.loading-screen .inner-wrapper img {
+.loading-screen img {
   animation: rotation 1.75s .80s infinite forwards;
 }
 @keyframes rotation {
@@ -240,4 +240,7 @@
 .wrapper {
   padding: 3em 5px;
   min-height: 70vh;
+}
+.is-disabled {
+  background: #e9ecef;
 }

@@ -9,14 +9,18 @@ import axios from 'axios';
 import config from '../config';
 
 import '../assets/stylesheets/account.css';
-import avatar from '../assets/avatar.png';
 
 class Me extends Component {
-  onEnabled(){
+  onEnabled() {
     $("form button.btn-info").prop("disabled",false);
   }
-  formSubmit(event){
+  formSubmit(event) {
     event.preventDefault();
+
+    if (event.target.elements.namedItem("avatar").files[0]) {
+      if (event.target.elements.namedItem("avatar").files[0].size > 250 * 1024) return $(".form-modal").addClass("failure").text("Image is too large")  
+    }
+
     $(".form-modal").addClass("success").text("Saving changes...")
 
     var formData = new FormData(event.target);
@@ -30,7 +34,7 @@ class Me extends Component {
         }, 500)
       })
       .catch(error=>{
-        $(".form-modal").addClass('failure').text(error.response.data.message || 'Failed to save changes!');
+        $(".form-modal").addClass('failure').text(error.response.data.message || 'Failed to save changes.');
       });
   }
   constructor(props){
@@ -60,31 +64,31 @@ render(){
             <img src={config.apiURL + "/api/user/image?email=" + this.props.user.email} alt="avatar"/><p>{this.props.user.username}</p>
           </header>
           <form onSubmit={this.formSubmit} onChange={this.onEnabled} className="container" encType="multipart/form-data">
-          <p className="form-modal"></p>
-          <div className="form-group">
-            <label>Email</label>
-            <input name="email" className="form-control" type="email" value={this.props.user.email} required readOnly/>
-          </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input name="password" className="form-control" type="password" required/>
-          </div>
-          <hr/>
+            <p className="form-modal"></p>
             <div className="form-group">
-              <label>User name</label>
-              <input name="newUsername" className="form-control" defaultValue={this.props.user.username}/>
+              <label>Email</label>
+              <input name="email" className="form-control is-disabled" type="email" value={this.props.user.email || ''} disabled/>
             </div>
             <div className="form-group">
+              <label>Password</label>
+              <input name="password" className="form-control" type="password" autoComplete="false" required/>
+            </div>
+            <hr/>
+              <div className="form-group">
+                <label>User name</label>
+                <input name="newUsername" className="form-control" placeholder={this.props.user.username}/>
+              </div>
+              <div className="form-group">
 
-            </div>
-            <label>Profile picture</label>
-              <input name="avatar" className="form-control" type="file" accept="image/*"/>
-            <div className="form-group">
-              <label>Bio</label>
-              <textarea name="bio" className="form-control" defaultValue={this.props.user.bio}></textarea>
-            </div>
+              </div>
+              <label>Profile picture</label>
+                <input name="avatar" className="form-control" type="file" accept="image/*"/>
+              <div className="form-group">
+                <label>Bio</label>
+                <textarea name="bio" className="form-control" placeholder={this.props.user.bio}></textarea>
+              </div>
 
-            <button className="btn btn-info" type="submit" disabled>Update</button>
+              <button className="btn btn-info" type="submit" disabled>Update</button>
           </form>
         </div>
         <Footer/>

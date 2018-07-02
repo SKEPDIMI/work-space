@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Sidemenu from '../components/Sidemenu';
 import SpaceCard from '../components/SpaceCard';
+import CouldNotLoad from '../components/CouldNotLoad';
 import { connect } from 'react-redux';
 import { setPopularSpaces } from '../redux/actions';
 import Loading from './Loading';
@@ -12,6 +13,9 @@ class PopularSpaces extends Component {
   componentWillMount() {
     this.props.setPopularSpaces()
   }
+  componentWillReceiveProps(n) {
+    console.log(n.spaces)
+  }
   render(){
     return(
       <div>
@@ -19,9 +23,9 @@ class PopularSpaces extends Component {
 
       <div className="content">
         <div className="row-fluid">
-          {this.props.spaces ? this.props.spaces.map((space, i) => {
+          {this.props.spaces === 'pending' ? <Loading /> : this.props.spaces.length >= 1 ? this.props.spaces.map((space, i) => {
             return (<SpaceCard key={i} space={space}/>)
-          }) : <Loading />}
+          }) : <CouldNotLoad name="popular spaces" />}
         </div>
       </div>
 

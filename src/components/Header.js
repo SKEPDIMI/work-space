@@ -27,7 +27,6 @@ class Header extends Component {
           <header className="header-main">
             <div className="header-main__left">       
                 <Link to="/"><img src={Logo} alt="WS"/></Link>
-                <Link to="/"><h1>WorkSpace</h1></Link>
             </div>
             <div className="header-main__right">
             <Link to="/popular/spaces">Popular Spaces</Link>

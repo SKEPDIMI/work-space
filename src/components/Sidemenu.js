@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import Logo from '../assets/logo.png';
 
 class Sidemenu extends Component {
@@ -9,7 +10,8 @@ class Sidemenu extends Component {
                 <img src={Logo} alt="WS"/>
                 </header>
                 <ul>
-                    <li><a href="">Popular Spaces</a></li>
+                    {this.props.user !== 'pending' && this.props.user ? (<li><a href="/me">My Account</a></li>) : false}
+                    <li><a href="/popular/spaces">Popular Spaces</a></li>
                     <li><a href="">My Spaces</a></li>
                 </ul>
             </div>
@@ -17,4 +19,8 @@ class Sidemenu extends Component {
     }
 };
 
-export default Sidemenu;
+const mapStateToProps = state => ({
+    user: state.user
+})
+
+export default connect(mapStateToProps)(Sidemenu);
