@@ -21,20 +21,21 @@ class Me extends Component {
       if (event.target.elements.namedItem("avatar").files[0].size > 250 * 1024) return $(".form-modal").addClass("failure").text("Image is too large")  
     }
 
-    $(".form-modal").addClass("success").text("Saving changes...")
+    $(".form-modal").removeClass('failure').addClass("success").text("Saving changes...")
 
     var formData = new FormData(event.target);
 
     axios.put(config.apiURL+'/api/users', formData)
       .then(response=>{
-        $(".form-modal").addClass('success').text('Changes have been saved.');
+        $(".form-modal").removeClass('failure').addClass('success').text('Changes have been saved.');
         $("form button.btn-info").prop("disabled",true);
+
         setTimeout(function(){
           window.location.reload();
         }, 500)
       })
       .catch(error=>{
-        $(".form-modal").addClass('failure').text(error.response.data.message || 'Failed to save changes.');
+        $(".form-modal").removeClass('success').addClass('failure').text(error.response.data.message || 'Failed to save changes.');
       });
   }
   constructor(props){
@@ -67,7 +68,7 @@ render(){
             <p className="form-modal"></p>
             <div className="form-group">
               <label>Email</label>
-              <input name="email" className="form-control is-disabled" type="email" value={this.props.user.email || ''} disabled/>
+              <input name="email" className="form-control is-disabled" type="email" value={this.props.user.email || ''} readOnly/>
             </div>
             <div className="form-group">
               <label>Password</label>
