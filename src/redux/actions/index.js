@@ -10,7 +10,7 @@ export const setPopularSpaces = () => {
   return dispatch => {
     dispatch({type: 'SET_POPULAR_SPACES', payload: 'pending'});
 
-    axios.get(config.apiURL + '/api/spaces?subscribed=2')
+    axios.get(config.apiURL + '/api/spaces')
     .then((response) => {
       dispatch({type: 'SET_POPULAR_SPACES', payload: response.data});
     })
