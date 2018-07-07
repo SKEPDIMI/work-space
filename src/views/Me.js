@@ -24,7 +24,7 @@ class Me extends Component {
     $(".form-modal").removeClass('failure').addClass("success").text("Saving changes...")
 
     var formData = new FormData(event.target);
-
+    formData.append('id', this.props.user._id)
     axios.put(config.apiURL+'/api/users', formData)
       .then(response=>{
         $(".form-modal").removeClass('failure').addClass('success').text('Changes have been saved.');
@@ -62,7 +62,7 @@ render(){
         <Header/><Sidemenu/>
         <div className="account-dashboard">
           <header>
-            <img src={config.apiURL + "/api/user/image?email=" + this.props.user.email} alt="avatar"/><p>{this.props.user.username}</p>
+            <img src={config.apiURL + "/api/user/image?id=" + this.props.user._id} alt="avatar"/><p>{this.props.user.username}</p>
           </header>
           <form onSubmit={this.formSubmit} onChange={this.onEnabled} className="container" encType="multipart/form-data">
             <p className="form-modal"></p>

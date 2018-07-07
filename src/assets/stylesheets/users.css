@@ -1,0 +1,88 @@
+.avatar {
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
+}
+
+.user-item {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.user-item .head {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.user-item > .head > div:not(.vr) {
+  flex : 1;
+}
+.user-item > .head > .img-container {
+  text-align: center;
+}
+.user-item > .head > .creds {
+  max-width: 420px;
+}
+.user-item > .head > .stats {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-direction: column;
+}
+.user-item > .head > .stats > div {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  align-content: center;
+}
+.user-item > .head > .stats > div > small {
+  margin: 10px;
+}
+@media screen and (max-width: 750px) {
+  .user-item > .head > .stats > div {
+    flex-direction: column;
+  }
+  .user-item > .head > .stats > div > small {
+    margin: 3px;
+  }
+}
+@media screen and (max-width: 530px) {
+  .user-item .head {
+    flex-direction: column;
+  }
+  .user-item .head .stats {
+    align-self: stretch;
+    flex: 1;
+    flex-direction: column;
+  }
+}
+.user-item .toggle {
+  background: #2a2a2a;
+  color: white;
+}
+
+.vr {
+  display: inline-block;
+  height: 100%;
+  width: 1px;
+  background: #e5e5e5;
+  margin: 10px;
+}
+
+.user-item > .more {
+  opacity: 0;
+  height: 0;
+  background: white;
+  z-index: 10;
+  transition: .5s all ease-in-out;
+}
+.user-item > .more.active {
+  border-top: 1px solid #e5e5e5;
+  margin-top: 1em;
+  padding: 1em;
+  opacity: 1;
+  height: 100%;
+}

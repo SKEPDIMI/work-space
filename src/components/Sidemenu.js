@@ -10,7 +10,7 @@ class Sidemenu extends Component {
                 <img src={Logo} alt="WS"/>
                 </header>
                 <ul>
-                    {this.props.user !== 'pending' && this.props.user ? (<li><a href="/me">My Account</a></li>) : false}
+                    {this.props.user !== 'pending' && this.props.user ? ([<li key={1}><a href="/me">My Account</a></li>, <li key={2}><a href="/logout">Log out</a></li>]) : false}
                     <li><a href="/popular/spaces">Popular Spaces</a></li>
                     <li><a href="">My Spaces</a></li>
                 </ul>

@@ -18,6 +18,7 @@ class SignIn extends Component {
   formSubmit(event){
     event.preventDefault()
     let formData = new FormData(event.target);
+    formData.append('id', this.props.user._id)
     $(".form-modal").addClass("success").text("Logging in...")
 
     axios.post(config.apiURL+'/api/auth', formData)

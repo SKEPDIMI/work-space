@@ -5,9 +5,9 @@ class SpaceCard extends Component {
   render(){
     return(
       <div className="list-group">
-        <a href={"/space/" + this.props.space._id} className="list-group-item list-group-item-action d-flex align-items-start row">
+        <a href={"/space?id=" + this.props.space._id} className="list-group-item list-group-item-action d-flex align-items-start row">
           <div className="d-flex w-100 justify-content-between">
-            <h5 className="mb-1 text-uppercase">{this.props.space.title}</h5>
+            <h5 className="mb-1 text-capitalize">{this.props.space.title}</h5>
             <small>Subscribers: {this.props.space.users.length}</small>
           </div>
           <div className="d-flex w-100 justify-content-around align-items-center">

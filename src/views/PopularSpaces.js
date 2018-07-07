@@ -10,11 +10,8 @@ import { setPopularSpaces } from '../redux/actions';
 import Loading from './Loading';
 
 class PopularSpaces extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.setPopularSpaces()
-  }
-  componentWillReceiveProps(n) {
-    console.log(n.spaces)
   }
   render(){
     return(
@@ -22,6 +19,9 @@ class PopularSpaces extends Component {
       <Header/><Sidemenu/>
 
       <div className="content">
+        <div className="d-flex w-100 justify-content-between align-items-center container-fluid">
+          <h1>Popular Spaces</h1> <a href="/space/create">Create your own</a>
+        </div>
         <div className="row-fluid">
           {this.props.spaces === 'pending' ? <Loading /> : this.props.spaces.length >= 1 ? this.props.spaces.map((space, i) => {
             return (<SpaceCard key={i} space={space}/>)

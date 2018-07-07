@@ -41,7 +41,7 @@ class Header extends Component {
               </li>
             {!this.props.user ? ([
             <a key={1} href="/signup" className="signup">Sign Up</a>,
-            <a key={2} href="/login" className="login">Log In</a> ]) : [<a key={1}href="/me">My Account</a>,<a key={2}href="/logout">Log out</a>]}
+            <a key={2} href="/login" className="login">Log In</a> ]) : [<a key={1}href="/me">My Account</a>]}
               <div className="nav-bars" onClick={this.toggleSide}>
                 <span></span>
                 <span></span>
