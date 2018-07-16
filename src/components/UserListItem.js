@@ -24,7 +24,7 @@ class UserListItem extends Component {
           <div className="stats">
             <button id="toggle-more" className="btn btn-dark toggle" onClick={() => this.setState({expanded: !this.state.expanded})}>Learn more</button>
             <div>
-              <small>Posts: {user.posts.length}</small><small>Friends: {user.posts.length}</small>
+              <small>Posts: {user.posts.length}</small><small>Followers: {user.followers.length}</small><small>Following: {user.following.length}</small>
             </div>
           </div>
         </div>

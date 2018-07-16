@@ -20,13 +20,14 @@ class PopularUsers extends Component {
   componentDidMount() {
     Axios.get(config.apiURL + '/api/users?limit=10')
     .then(res => {
+      console.log(res.data)
       this.setState({loading: false, users: res.data})
     })
     .catch(err => {
       this.setState(err.response.data.message || 'Could not load popular users');
       this.setState({loading: false})
     })
-    
+
   }
   render(){
     return(

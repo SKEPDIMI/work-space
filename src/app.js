@@ -15,15 +15,19 @@ var store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
 class App extends Component {
   componentDidMount(){
-    if (localStorage.getItem('workspaceToken')) { // IF THE USER HAS A TOKEN, VERIFY IT AND GET THE USER DATA FROM API
+    const WSdata = JSON.parse(
+      localStorage.getItem('workspaceToken') || false
+    );
+    if (WSdata) { // IF THE USER HAS A TOKEN, VERIFY IT AND GET THE USER DATA FROM API
       let workspaceData = JSON.parse(localStorage.getItem('workspaceToken'));
-      axios.get(config.apiURL + '/api/auth?token=' + workspaceData.token)
+      axios.get(config.apiURL + '/api/auth?token=' + WSdata.token)
         .then(response=>{
           this.setState({done:true});
           store.dispatch(setUser(response.data));
         })
         .catch(error=>{
-          this.setState({done:true})
+          localStorage.setItem('workspaceToken', "false");
+          this.setState({done:true});
           store.dispatch(setUser(false));
         });
     } else {
