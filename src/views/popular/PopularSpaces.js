@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import Sidemenu from '../components/Sidemenu';
-import SpaceCard from '../components/SpaceCard';
-import CouldNotLoad from '../components/CouldNotLoad';
+import Header from '../../components/global/Header';
+import Footer from '../../components/global/Footer';
+import Sidemenu from '../../components/global/Sidemenu';
+import SpaceCard from '../../components/SpaceCard';
+import CouldNotLoad from '../../components/util/CouldNotLoad';
 import { connect } from 'react-redux';
-import { setPopularSpaces } from '../redux/actions';
-import Loading from './Loading';
+import { setPopularSpaces } from '../../redux/actions';
+import Loading from './../Loading';
 
 class PopularSpaces extends Component {
   componentDidMount() {

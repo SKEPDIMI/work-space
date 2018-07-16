@@ -3,45 +3,34 @@ import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import reducers from './redux/reducers';
-import axios from 'axios';
 
-import Routes from './components/Routes';
-import Loading from './views/Loading';
+import Routes from './components/util/Routes';
 
 import config from './config';
-import {setUser} from './redux/actions';
+import { fetchUser, setUser } from './redux/actions';
 
 var store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
 class App extends Component {
-  componentDidMount(){
+  async componentDidMount() {
     const WSdata = JSON.parse(
-      localStorage.getItem('workspaceToken') || false
+      localStorage.getItem('workspaceToken') || "false"
     );
-    if (WSdata) { // IF THE USER HAS A TOKEN, VERIFY IT AND GET THE USER DATA FROM API
-      let workspaceData = JSON.parse(localStorage.getItem('workspaceToken'));
-      axios.get(config.apiURL + '/api/auth?token=' + WSdata.token)
-        .then(response=>{
-          this.setState({done:true});
-          store.dispatch(setUser(response.data));
-        })
-        .catch(error=>{
-          localStorage.setItem('workspaceToken', "false");
-          this.setState({done:true});
-          store.dispatch(setUser(false));
-        });
+    if ( WSdata ) {
+      store.dispatch(await fetchUser());
     } else {
-      this.setState({done:true});
+      this.setState({ done:true });
       store.dispatch(setUser(false));
     }
   }
   constructor(props){
     super(props);
-    this.state = {done:false};
   };
   render(){
     return(
-      this.state.done ? <Provider store={store}><Routes/></Provider> : <Loading/>
+      <Provider store={store}>
+        <Routes/>
+      </Provider>
     );
   }
 };

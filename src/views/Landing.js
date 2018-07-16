@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import '../assets/stylesheets/landing.css';
 
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '../components/global/Header';
+import Footer from '../components/global/Footer';
 
 import Typewriter from '../components/Typewriter';
-import Sidemenu from '../components/Sidemenu';
+import Sidemenu from '../components/global/Sidemenu';
 
 class Landing extends Component {
 	render(){

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import Header from '../components/Header';
-import Sidemenu from '../components/Sidemenu';
-import Footer from '../components/Footer';
+import Header from '../components/global/Header';
+import Sidemenu from '../components/global/Sidemenu';
+import Footer from '../components/global/Footer';
 import Axios from '../../node_modules/axios';
 import config from '../config';
 import Loading from './Loading';

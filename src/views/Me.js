@@ -1,8 +1,9 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import Sidemenu from '../components/Sidemenu';
+import Header from '../components/global/Header';
+import Footer from '../components/global/Footer';
+import Sidemenu from '../components/global/Sidemenu';
+import Loading from '../views/Loading';
 
 import $ from 'jquery';
 import axios from 'axios';
@@ -24,19 +25,19 @@ class Me extends Component {
     $(".form-modal").removeClass('failure').addClass("success").text("Saving changes...")
 
     var formData = new FormData(event.target);
-    formData.append('id', this.props.user._id)
-    axios.put(config.apiURL+'/api/users', formData)
-      .then(response=>{
-        $(".form-modal").removeClass('failure').addClass('success').text('Changes have been saved.');
-        $("form button.btn-info").prop("disabled",true);
+    formData.append('id', this.props.user._id);
 
-        setTimeout(function(){
-          window.location.reload();
-        }, 500)
-      })
-      .catch(error=>{
-        $(".form-modal").removeClass('success').addClass('failure').text(error.response.data.message || 'Failed to save changes.');
-      });
+    axios.put(config.apiURL+'/api/users', formData)
+    .then(response => {
+      $(".form-modal").removeClass('failure').addClass('success').text('Changes have been saved.');
+      $("form button.btn-info").prop("disabled", true);
+      setTimeout(function(){
+        window.location.reload();
+      }, 500)
+    })
+    .catch(error => {
+      $(".form-modal").removeClass('success').addClass('failure').text(error.response.data.message || 'Failed to save changes.');
+    });
   }
   constructor(props){
     super(props);
@@ -56,6 +57,8 @@ render(){
         <Footer/>
       </div>
       )
+    } else if (this.props.user === 'pending') {
+      return <Loading />
     } else {
       return(
         <div>

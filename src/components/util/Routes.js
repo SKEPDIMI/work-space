@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import {BrowserRouter,Route,Switch,Redirect} from 'react-router-dom';
 
-import Landing from '../views/Landing';
-import PopularSpaces from '../views/PopularSpaces';
-import LogIn from '../forms/LogIn';
-import SignUp from '../forms/SignUp';
-import Me from '../views/Me';
-import LogOut from '../views/LogOut';
-import PopularUsers from '../views/PopularUsers';
-import Space from '../views/Space';
-import About from '../views/About';
+import Landing from '../../views/Landing';
+import PopularSpaces from '../../views/popular/PopularSpaces';
+import LogIn from '../../forms/LogIn';
+import SignUp from '../../forms/SignUp';
+import Me from '../../views/Me';
+import LogOut from '../../views/LogOut';
+import PopularUsers from '../../views/popular/PopularUsers';
+import Space from '../../views/Space';
+import About from '../../views/About';
 
 class Routes extends Component {
 render(){

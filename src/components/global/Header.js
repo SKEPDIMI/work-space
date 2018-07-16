@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Logo from '../assets/thumbnail.png';
+import Logo from '../../assets/thumbnail.png';
 import { Link } from 'react-router-dom'
 import $ from 'jquery';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 class Header extends Component {
   constructor(props){

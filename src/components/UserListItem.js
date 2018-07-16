@@ -6,21 +6,22 @@ import config from '../config';
 class UserListItem extends Component {
   constructor(props){
     super(props);
-    this.state = {expanded: false};
+    this.state = {
+      expanded: false
+    };
   };
   render(){
     let user = this.props.user;
     return(
       <li className="user-item list-group-item">
-        <div className="head">
+        <div className="head justify-content-start">
           <div className="img-container">
             <img className="avatar" src={config.apiURL + '/api/user/image?id=' + user._id} />
           </div>
-          <div className="creds flex justify-content-evenly flex-direction-column">
+          <div className="creds flex justify-content-evenly flex-direction-column align-items-start">
             <h5 className="mb-1">{user.username}</h5>
             <p className="mb-1">{user.bio}</p>
           </div>
-          <div className="vr"/>
           <div className="stats">
             <button id="toggle-more" className="btn btn-dark toggle" onClick={() => this.setState({expanded: !this.state.expanded})}>Learn more</button>
             <div>

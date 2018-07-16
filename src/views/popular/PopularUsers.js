@@ -1,12 +1,13 @@
-import React, {Component} from 'react';
-import config from '../config';
-import Header from '../components/Header';
-import Sidemenu from '../components/Sidemenu';
-import Footer from '../components/Footer';
-import Loading from '../views/Loading';
-import UserListItem from '../components/UserListItem';
-import Axios from '../../node_modules/axios';
-import '../assets/stylesheets/users.css';
+import React, { Component } from 'react';
+import config from '../../config';
+import Header from '../../components/global/Header';
+import Sidemenu from '../../components/global/Sidemenu';
+import Footer from '../../components/global/Footer';
+import Loading from '../../views/Loading';
+import UserListItem from '../../components/UserListItem';
+
+import Axios from 'axios';
+import '../../assets/stylesheets/users.css';
 
 class PopularUsers extends Component {
   constructor(props){

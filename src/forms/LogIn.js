@@ -5,9 +5,9 @@ import config from '../config';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
-import Header from '../components/Header.js';
-import Footer from '../components/Footer.js';
-import Sidemenu from '../components/Sidemenu.js';
+import Header from '../components/global/Header.js';
+import Footer from '../components/global/Footer.js';
+import Sidemenu from '../components/global/Sidemenu.js';
 
 class SignIn extends Component {
   componentWillMount(){
