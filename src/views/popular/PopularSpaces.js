@@ -7,7 +7,7 @@ import SpaceCard from '../../components/SpaceCard';
 import CouldNotLoad from '../../components/util/CouldNotLoad';
 import { connect } from 'react-redux';
 import { setPopularSpaces } from '../../redux/actions';
-import Loading from './../Loading';
+import LoadingScreen from '../util/LoadingScreen';
 
 class PopularSpaces extends Component {
   componentDidMount() {
@@ -23,7 +23,7 @@ class PopularSpaces extends Component {
           <h1>Popular Spaces</h1> <a href="/space/create">Create your own</a>
         </div>
         <div className="row-fluid">
-          {this.props.spaces === 'pending' ? <Loading /> : this.props.spaces.length >= 1 ? this.props.spaces.map((space, i) => {
+          {this.props.spaces === 'pending' ? <LoadingScreen /> : this.props.spaces.length >= 1 ? this.props.spaces.map((space, i) => {
             return (<SpaceCard key={i} space={space}/>)
           }) : <CouldNotLoad name="popular spaces" />}
         </div>

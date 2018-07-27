@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Header from '../components/global/Header';
 import Footer from '../components/global/Footer';
 import Sidemenu from '../components/global/Sidemenu';
-import Loading from '../views/Loading';
+import LoadingScreen from '../views/util/LoadingScreen';
 
 import $ from 'jquery';
 import axios from 'axios';
@@ -19,7 +19,7 @@ class Me extends Component {
     event.preventDefault();
 
     if (event.target.elements.namedItem("avatar").files[0]) {
-      if (event.target.elements.namedItem("avatar").files[0].size > 250 * 1024) return $(".form-modal").addClass("failure").text("Image is too large")  
+      if (event.target.elements.namedItem("avatar").files[0].size > 250 * 1024) return $(".form-modal").addClass("failure").text("Image is too large")
     }
 
     $(".form-modal").removeClass('failure').addClass("success").text("Saving changes...")
@@ -58,29 +58,33 @@ render(){
       </div>
       )
     } else if (this.props.user === 'pending') {
-      return <Loading />
+      return <LoadingScreen />
     } else {
       return(
         <div>
         <Header/><Sidemenu/>
         <div className="account-dashboard">
           <header>
-            <img src={config.apiURL + "/api/user/image?id=" + this.props.user._id} alt="avatar"/><p>{this.props.user.username}</p>
+            <img src={config.apiURL + "/api/user/image?id=" + this.props.user._id} className="avatar" alt="avatar"/>
+            <div>
+              <p>{this.props.user.username}</p>
+              {this.props.user.verified ? null : <p className="text-muted">Unverified</p>}
+            </div>
           </header>
           <form onSubmit={this.formSubmit} onChange={this.onEnabled} className="container" encType="multipart/form-data">
             <p className="form-modal"></p>
             <div className="form-group">
               <label>Email</label>
-              <input name="email" className="form-control is-disabled" type="email" value={this.props.user.email || ''} readOnly/>
+              <input name="email" className="form-control is-disabled" type="email" value={this.props.user.email} readOnly/>
             </div>
             <div className="form-group">
               <label>Password</label>
-              <input name="password" className="form-control" type="password" autoComplete="false" required/>
+              <input name="password" className="form-control" type="password" autoComplete="off" required/>
             </div>
             <hr/>
               <div className="form-group">
-                <label>User name</label>
-                <input name="newUsername" className="form-control" placeholder={this.props.user.username}/>
+                <label>Username: {this.props.user.username}</label>
+                <input name="newUsername" className="form-control" autoComplete="off" placeholder={this.props.user.username}/>
               </div>
               <div className="form-group">
 

@@ -6,4 +6,7 @@ import './assets/stylesheets/global.css';
 
 import App from './app';
 
-ReactDOM.render(<App/>, document.getElementById('root'));
+ReactDOM.render(
+  <App/>, // and away goes the app ...
+  document.getElementById('root')
+);

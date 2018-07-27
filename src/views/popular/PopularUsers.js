@@ -3,7 +3,7 @@ import config from '../../config';
 import Header from '../../components/global/Header';
 import Sidemenu from '../../components/global/Sidemenu';
 import Footer from '../../components/global/Footer';
-import Loading from '../../views/Loading';
+import LoadingScreen from '../../views/util/LoadingScreen';
 import UserListItem from '../../components/UserListItem';
 
 import Axios from 'axios';
@@ -32,7 +32,7 @@ class PopularUsers extends Component {
   }
   render(){
     return(
-      this.state.loading === true ? <Loading /> :
+      this.state.loading === true ? <LoadingScreen /> :
       <div>
         <Header/>
         <Sidemenu/>

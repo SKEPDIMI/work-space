@@ -23,12 +23,13 @@ export const setPopularSpaces = () => {
 export const fetchUser = async () => {
     let workspaceData = JSON.parse(localStorage.getItem('workspaceToken'));
     if (!workspaceData) return setUser(false);
-    
+
     try {
       let response = await axios.get(config.apiURL + '/api/auth?token=' + workspaceData.token);
       return setUser(response.data);
     }
     catch(error) {
+      console.log('Error fetching user')
       localStorage.setItem('workspaceToken', "false");
       return setUser(false);
     }

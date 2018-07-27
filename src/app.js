@@ -6,26 +6,25 @@ import reducers from './redux/reducers';
 
 import Routes from './components/util/Routes';
 
-import config from './config';
 import { fetchUser, setUser } from './redux/actions';
 
 var store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
 class App extends Component {
   async componentDidMount() {
-    const WSdata = JSON.parse(
+    if (store.getState().user !== 'pending') return // This line prevents the component from re-requesting the user's data on every route change
+
+    const WSdata = JSON.parse( // Parse the JWT that is store in localStorage
       localStorage.getItem('workspaceToken') || "false"
     );
-    if ( WSdata ) {
+
+    if ( WSdata ) { // If there is a JWT in our local storage we want to call the fetchUser action creator, and dispatch whatever it returns to us (an action to set store.user to the usersdata, fetched from the API)
       store.dispatch(await fetchUser());
-    } else {
-      this.setState({ done:true });
+    } else { // If there is no JWT in out local storage, just set the user to false for user components to know that the user is undefined and not pending
+      this.setState({ done: true });
       store.dispatch(setUser(false));
     }
   }
-  constructor(props){
-    super(props);
-  };
   render(){
     return(
       <Provider store={store}>

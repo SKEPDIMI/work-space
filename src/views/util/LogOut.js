@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import Loading from './Loading';
+import LoadingScreen from './LoadingScreen';
 
-import { setUser } from '../redux/actions';
+import { setUser } from '../../redux/actions';
 import { connect } from 'react-redux';
 
 class LogOut extends Component {
@@ -12,7 +12,7 @@ class LogOut extends Component {
   }
   render(){
     return(
-      <Loading/>
+      <LoadingScreen />
     );
   }
 };

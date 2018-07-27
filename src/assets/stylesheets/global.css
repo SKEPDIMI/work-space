@@ -213,14 +213,29 @@
   justify-content: center;
   height: 100vh;
 }
-.loading-screen, .error-screen > .inner-wrapper {
+.loading-screen > .inner-wrapper, .error-screen > .inner-wrapper {
   color: rgb(114, 114, 114);
   font-weight: lighter;
   text-align: center;
   padding-bottom:10px;
 }
+.spinner-img.x-small {
+  height: 2em;
+}
+.spinner-img.small {
+  height: 3rem;
+}
+.spinner-img.medium {
+  height: 6rem;
+}
+.spinner-img.large {
+  height: 8rem;
+}
+.spinner-img {
+  animation: rotation 1.5s infinite forwards;
+}
 .loading-screen img {
-  animation: rotation 1.75s .80s infinite forwards;
+  animation: rotation 1.75s infinite forwards;
 }
 @keyframes rotation {
   0% {

@@ -6,10 +6,11 @@ import PopularSpaces from '../../views/popular/PopularSpaces';
 import LogIn from '../../forms/LogIn';
 import SignUp from '../../forms/SignUp';
 import Me from '../../views/Me';
-import LogOut from '../../views/LogOut';
+import LogOut from '../../views/util/LogOut';
 import PopularUsers from '../../views/popular/PopularUsers';
 import Space from '../../views/Space';
 import About from '../../views/About';
+import VerifyEmail from '../../views/VerifyEmail';
 
 class Routes extends Component {
 render(){
@@ -28,6 +29,7 @@ return(
     <Route path="/logout" component={LogOut}/>
     <Route path="/me" component={Me} />
     <Route path="/space" component={Space} />
+    <Route path="/verifyemail/:id" component={VerifyEmail} />
   </Switch>
   </BrowserRouter>
 );

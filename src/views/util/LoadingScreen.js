@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import Logo from '../assets/logo.png';
+import React, { Component } from 'react';
+import Logo from '../../assets/logo.png';
 
-class Loading extends Component {
+class LoadingScreen extends Component {
   render(){
     return(
       <div className="loading-screen">
@@ -16,4 +16,4 @@ class Loading extends Component {
   }
 };
 
-export default Loading;
+export default LoadingScreen;
