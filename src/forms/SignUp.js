@@ -70,7 +70,7 @@ class SignIn extends Component {
               <div className="col">
                 <h1>Welcome to WorkSpace!</h1>
                 <hr/>
-                <span className="form-modal">Logged in!</span>
+                <span className="form-modal"></span>
               </div>
 
               <div className="col-8">

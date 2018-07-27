@@ -21,12 +21,18 @@ export const setPopularSpaces = () => {
 }
 
 export const fetchUser = async () => {
-    let workspaceData = JSON.parse(localStorage.getItem('workspaceToken'));
-    if (!workspaceData) return setUser(false);
+    let workspaceToken = JSON.parse(
+      localStorage.getItem('workspaceToken') || "false"
+    );
+    if (!workspaceToken) return setUser(false);
 
     try {
-      let response = await axios.get(config.apiURL + '/api/auth?token=' + workspaceData.token);
-      return setUser(response.data);
+      let response = await axios.get(config.apiURL + '/api/auth?token=' + workspaceToken.token);
+      let user = response.data;
+
+      user.token = workspaceToken.token;
+
+      return setUser(user);
     }
     catch(error) {
       console.log('Error fetching user')

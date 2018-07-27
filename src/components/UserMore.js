@@ -17,11 +17,14 @@ class UserMore extends Component {
       $('.more').removeClass('active').children().remove();
       $(moreElement).addClass('active').append('<h1>Loading</h1>');
 
-      Axios.get(config.apiURL + '/api/posts?userId='+ this.props.userId)
-      .then(posts => {
+      Axios.get(config.apiURL + '/api/posts?limit=5&userId='+ this.props.userId)
+      .then(response => {
+        let posts = response.data;
+
         $(moreElement).empty();
+
         posts.forEach(post => {
-          $(moreElement).append('<h5>' + post.title + '</h5>')
+          $(moreElement).append('<h5><a href="post/' + post._id + '">' + post.title + '</a></h5>')
         })
       })
       .catch(err => {
