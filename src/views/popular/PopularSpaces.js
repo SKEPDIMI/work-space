@@ -6,12 +6,12 @@ import Sidemenu from '../../components/global/Sidemenu';
 import SpaceCard from '../../components/SpaceCard';
 import CouldNotLoad from '../../components/util/CouldNotLoad';
 import { connect } from 'react-redux';
-import { setPopularSpaces } from '../../redux/actions';
+import { fetchPopularSpaces } from '../../redux/actions';
 import LoadingScreen from '../util/LoadingScreen';
 
 class PopularSpaces extends Component {
   componentDidMount() {
-    this.props.setPopularSpaces()
+    this.props.fetchPopularSpaces()
   }
   render(){
     return(
@@ -39,4 +39,4 @@ const mapStateToProps = state => ({
   spaces: state.popularSpaces
 });
 
-export default connect(mapStateToProps, {setPopularSpaces})(PopularSpaces);
+export default connect(mapStateToProps, {fetchPopularSpaces})(PopularSpaces);

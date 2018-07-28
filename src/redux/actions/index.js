@@ -6,7 +6,7 @@ export const setUser = userData => ({
   payload: userData || false
 });
 
-export const setPopularSpaces = () => {
+export const fetchPopularSpaces = () => {
   return dispatch => {
     dispatch({type: 'SET_POPULAR_SPACES', payload: 'pending'});
 

@@ -8,6 +8,9 @@ import Axios from 'axios';
 import $ from 'jquery';
 
 class PostSubmit extends Component {
+  componentDidMount() {
+    if (!this.props.match.params.id) window.location = ''
+  }
   componentWillReceiveProps(nextProps) {
     if (!nextProps.match.params.id) {
       return window.location = '/'
@@ -44,6 +47,10 @@ class PostSubmit extends Component {
     this.displaySuccess = this.displaySuccess.bind(this);
   };
   render(){
+    if (!this.props.user) {
+      window.location = '/login?redirect=submit/' + this.props.match.params.id;
+      return null
+    }
     return(
       <div>
         <Header />

@@ -3,6 +3,7 @@ import $ from 'jquery';
 import config from '../config';
 
 import axios from 'axios';
+import queryString from 'query-string'
 import { connect } from 'react-redux';
 
 import Header from '../components/global/Header.js';
@@ -24,7 +25,13 @@ class SignIn extends Component {
     axios.post(config.apiURL+'/api/auth', formData)
       .then(response=>{
         localStorage.setItem('workspaceToken', JSON.stringify({token:response.data.token}));
-        window.location = '/';
+
+        let values = queryString.parse(this.props.location.search);
+        if (values.redirect) {
+          window.location = values.redirect
+        } else {
+          window.location = '/'
+        }
       })
       .catch(error=>{
         $(".form-modal").addClass('failure').text(error.response.data.message || 'Failed to log in!');

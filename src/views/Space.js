@@ -7,6 +7,7 @@ import Spinner from './util/Spinner';
 import PostItem from '../components/PostItem';
 import config from '../config';
 import '../assets/stylesheets/space.css';
+import queryString from 'query-string';
 
 class Space extends Component {
   constructor(props){
@@ -14,7 +15,8 @@ class Space extends Component {
     this.state = { space: {}, posts: 'pending' };
   };
   async componentDidMount() {
-    let id = this.props.location.search.replace('?id=', '');
+    let values = queryString.parse(this.props.location.search);
+    let id = values.id;
 
     if (!id) return window.location = '/popular/spaces';
 
@@ -50,7 +52,7 @@ class Space extends Component {
                 <p>This space has no posts</p>
               ) : this.state.posts.length > 0 ? (
                 this.state.posts.map((post, i) => {
-                  <PostItem key={i} data={post}/>
+                  return <PostItem key={i} data={post}/>
                 })
               ) : (
                 <p>Could not load posts</p>
