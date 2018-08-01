@@ -1,7 +1,95 @@
 import React, {Component} from 'react';
-import UserMore from './UserMore';
-import $ from 'jquery';
 import config from '../config';
+import $ from 'jquery';
+import Axios from 'axios';
+import Spinner from './util/Spinner';
+import TimeAgo from 'react-timeago';
+
+class UserMore extends Component { // A div that opens up and shows more info about the user
+  constructor(props){
+    super(props);
+    this.state = {
+      posts: 'inactive'
+    };
+
+    this.moreRef = React.createRef()
+  };
+  componentWillReceiveProps(nextProps) {
+    let moreElement = $(this.moreRef.current);
+
+    if (nextProps.active) {
+      $('.more').removeClass('active'); // Close all other user-more components
+      $(moreElement).addClass('active'); // Open ours only
+
+      this.setState({
+        posts: 'pending'
+      })
+      Axios.get(config.apiURL + '/api/posts?limit=5&userId='+ this.props.userId)
+      .then(response => {
+        let posts = response.data;
+
+        this.setState({ posts })
+      })
+      .catch(err => {
+        this.setState({ posts: false })
+      })
+    } else {
+      $(moreElement).removeClass('active');
+      this.setState({
+        posts: 'inactive'
+      })
+    }
+  }
+  render(){
+    let { posts } = this.state;
+
+    if (posts === 'inactive') {
+      return (
+        <div className="more" ref={this.moreRef} />
+      )
+    } else if (posts === 'pending') {
+      return (
+        <div className="more" ref={this.moreRef}>
+          <Spinner size={'medium'} />
+        </div>
+      )
+    } else if (!posts) {
+      return (
+        <div className="more" ref={this.moreRef}>
+          <h5>Could not load users posts</h5>
+        </div>
+      )
+    } else if (posts.length > 0) {
+      return(
+        <div className="more" ref={this.moreRef}>
+          <ul className="list-group list-group-flush">
+            {
+              posts.map((post, index) => {
+                return (
+                  <a key={index} href={'/post/' + post.space._id} className="list-group-item list-group-item-action flex-column align-items-start">
+                    <div className="d-flex w-100 justify-content-between">
+                      <h5 className="mb-1">{post.title} | {post.space.title}</h5>
+                      <small>{post.author_name}</small>
+                    </div>
+                    <p className="mb-1">{post.body}</p>
+                    <small><TimeAgo date={new Date(post.creationTime)} />, {Object.values(post.votes).length} votes.</small>
+                  </a>
+                )
+              })
+            }
+          </ul>
+
+        </div>
+      )
+    } else if (posts.length === 0) {
+      return (
+        <div className="more" ref={this.moreRef}>
+          <h5>This user has no posts</h5>
+        </div>
+      )
+    }
+  }
+};
 
 class UserListItem extends Component {
   constructor(props){
@@ -14,9 +102,9 @@ class UserListItem extends Component {
     let user = this.props.user;
     return(
       <li className="user-item list-group-item">
-        <div className="head justify-content-start">
+        <div className="head">
           <div className="img-container">
-            <img className="avatar" src={config.apiURL + '/api/user/image?id=' + user._id} />
+            <img className="avatar" src={config.apiURL + '/api/user/image?id=' + user._id} alt="avatar"/>
           </div>
           <div className="creds flex justify-content-evenly flex-direction-column align-items-start">
             <h5 className="mb-1">{user.username}</h5>

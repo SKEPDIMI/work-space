@@ -1,13 +1,13 @@
 .header-master {
-  top:0;
-  left:0;
-  right:0;
-  z-index:50;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
 }
 .header-main{
   background: #3cd4f2;
   box-shadow: 0 3px 3px rgb(146, 146, 146);
-  width:100%;
+  width: 100%;
   display: inline-flex;
   justify-content: space-between;
   height:10vh;
@@ -248,7 +248,7 @@
 
 .content {
   margin-top: 1em;
-  min-height: 50vh;
+  min-height: 75vh;
 }
 
 .form-modal {

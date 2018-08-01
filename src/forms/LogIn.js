@@ -11,6 +11,12 @@ import Footer from '../components/global/Footer.js';
 import Sidemenu from '../components/global/Sidemenu.js';
 
 class SignIn extends Component {
+  displayError(error) {
+    $(".form-modal").removeClass('success').addClass('failure').text(error);
+  }
+  displaySuccess(message) {
+    $(".form-modal").removeClass('failure').addClass('success').text(message);
+  }
   componentWillMount(){
     if (this.props.user === true) {
       window.location = '/'
@@ -20,10 +26,10 @@ class SignIn extends Component {
     event.preventDefault()
     let formData = new FormData(event.target);
     formData.append('id', this.props.user._id)
-    $(".form-modal").addClass("success").text("Logging in...")
+    this.displaySuccess("Logging in...")
 
     axios.post(config.apiURL+'/api/auth', formData)
-      .then(response=>{
+      .then( response => {
         localStorage.setItem('workspaceToken', JSON.stringify({token:response.data.token}));
 
         let values = queryString.parse(this.props.location.search);
@@ -33,8 +39,9 @@ class SignIn extends Component {
           window.location = '/'
         }
       })
-      .catch(error=>{
-        $(".form-modal").addClass('failure').text(error.response.data.message || 'Failed to log in!');
+      .catch( error => {
+        if (!error.response.data) error.response.data.message = 'Failed to log in!'
+        this.displayError(error.response.data.message);
       })
 
   }
@@ -42,6 +49,8 @@ class SignIn extends Component {
     super(props);
     this.state = {};
     this.formSubmit = this.formSubmit.bind(this);
+    this.displayError = this.displayError.bind(this);
+    this.displaySuccess = this.displaySuccess.bind(this);
   };
   render(){
     return(

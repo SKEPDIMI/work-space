@@ -30,23 +30,25 @@ class SignIn extends Component {
     $(".form-modal").removeClass('failure').addClass('success').text('Creating Account...');
 
     axios.post(config.apiURL+'/api/users', formData)
-      .then(response=>{
+      .then( response => {
         this.displaySuccess('Almost done...');
 
         let { userId } = response.data;
 
         axios.post(config.apiURL+'/api/verifyEmail', { userId })
-        .then((response) => {
+        .then( response => {
           this.setState({
             done: true
           })
         })
-        .catch((err) => {
-          this.displayError(err.response.data.message)
+        .catch( error => {
+          if (!error.response.data) error.response.data.message = 'Failed to log in!'
+          this.displayError(error.response.data.message);
         })
       })
-      .catch(error=>{
-        this.displayError(error.response.data.message || 'Failed to log in!');
+      .catch( error => {
+        if (!error.response.data) error.response.data.message = 'Failed to log in!'
+        this.displayError(error.response.data.message);
       })
 
   }

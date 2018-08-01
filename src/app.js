@@ -12,8 +12,14 @@ var store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
 class App extends Component {
   async componentDidMount() {
-    if (store.getState().user !== 'pending') return // This line prevents the component from re-requesting the user's data on every route change
+    /*
+      Perhaps we need another
+      mechanism for fetching on every
+      route change in case the user's
+      session has expired.
 
+    if (store.getState().user !== 'pending') return // This line prevents the component from re-requesting the user's data on every route change
+    */
     const workspaceToken = JSON.parse( // Parse the JWT that is store in localStorage
       localStorage.getItem('workspaceToken') || "false"
     );

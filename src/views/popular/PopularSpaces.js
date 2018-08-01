@@ -16,14 +16,15 @@ class PopularSpaces extends Component {
   render(){
     return(
       <div>
-      <Header/><Sidemenu/>
+      <Header/>
+      <Sidemenu/>
 
       <div className="content">
         <div className="d-flex w-100 justify-content-between align-items-center container-fluid">
           <h1>Popular Spaces</h1> <a href="/space/create">Create your own</a>
         </div>
         <div className="row-fluid">
-          {this.props.spaces === 'pending' ? <LoadingScreen /> : this.props.spaces.length >= 1 ? this.props.spaces.map((space, i) => {
+          {this.props.spaces === 'pending' ? <LoadingScreen /> : Array.isArray(this.props.spaces) ? this.props.spaces.map((space, i) => {
             return (<SpaceCard key={i} space={space}/>)
           }) : <CouldNotLoad name="popular spaces" />}
         </div>

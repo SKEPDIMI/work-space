@@ -12,6 +12,7 @@
 }
 
 .user-item .head {
+  width: '100%';
   display: inline-flex;
   flex-direction: row;
   justify-content: space-between;
@@ -20,9 +21,11 @@
 .user-item > .head > .img-container {
   text-align: center;
   margin-right: .75rem;
+  float: left;
 }
 .user-item > .head > .creds {
   max-width: 420px;
+  margin-right: auto;
 }
 .user-item > .head > .stats {
   display: inline-flex;
@@ -30,7 +33,7 @@
   align-items: stretch;
   flex-direction: column;
   float: right;
-  margin-left: auto;
+  left: 0;
 }
 .user-item > .head > .stats > div {
   display: flex;

@@ -32,11 +32,13 @@ class PostSubmit extends Component {
     formData.append('token', this.props.user.token);
 
     Axios.post(config.apiURL + '/api/posts', formData)
-    .then(response => {
+    .then( response => {
+      this.displaySuccess(response.data.message);
       window.location = '/post/' + response.data.postId
     })
-    .catch(err => {
-      this.displayError('Could not create post!')
+    .catch( error => {
+      if (!error.response.data) error.response.data.message = 'Failed to log in!'
+      this.displayError(error.response.data.message);
     });
   }
   constructor(props){
@@ -67,8 +69,7 @@ class PostSubmit extends Component {
               </div>
               <div className="form-group">
                 <label>Text</label>
-                <textarea className="form-control" name="body" placeholder="Text">
-                </textarea>
+                <textarea className="form-control" name="body" placeholder="Text" required/>
               </div>
               <button className="btn btn-info" type="submit">Submit</button>
             </form>

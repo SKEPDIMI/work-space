@@ -8,7 +8,8 @@ class PostItem extends Component {
       <div>
         <h4><a href={"/post/" + _id}>{title}</a></h4>
         <hr/>
-        <p>{body.length > 100 ? body.substring(0, 100) : body}</p>
+        <small>{author.username}</small>
+        <p>{body.length > 75 ? body.substring(0, 75) : body}</p>
       </div>
     );
   }

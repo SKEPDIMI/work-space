@@ -10,7 +10,8 @@ class CouldNotLoad extends Component {
           <h1>Work Space</h1>
           <hr/>
           <p>Sorry, but {this.props.name} could not be loaded...</p>
-          <a href="/landing">Back home</a>
+          <a href="/landing">Back home </a>
+          <a href={window.location} onClick={window.location.reload}> Refresh</a>
         </div>
       </div>
     );

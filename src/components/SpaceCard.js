@@ -8,7 +8,7 @@ class SpaceCard extends Component {
         <a href={"/space?id=" + this.props.space._id} className="list-group-item list-group-item-action d-flex align-items-start row">
           <div className="d-flex w-100 justify-content-between">
             <h5 className="mb-1 text-capitalize">{this.props.space.title}</h5>
-            <small>Subscribers: {this.props.space.users.length}</small>
+            <small>Subscribers: {Object.values(this.props.space.users).length}</small>
           </div>
           <div className="d-flex w-100 justify-content-around align-items-center">
             <div className="col">

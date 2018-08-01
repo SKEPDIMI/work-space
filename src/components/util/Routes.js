@@ -18,6 +18,7 @@ import Space from '../../views/Space';
 import About from '../../views/About';
 import PostSubmit from '../../forms/PostSubmit';
 import VerifyEmail from '../../views/VerifyEmail';
+import Post from '../../views/Post';
 
 class Routes extends Component {
 render(){
@@ -51,7 +52,7 @@ return(
     <Route path="/space" component={Space} />
     <Route path="/verifyemail/:id" component={VerifyEmail} />
     <Route path="/submit/:id" component={PostSubmit} />
-    <Route path="/post/:id" component={null} />
+    <Route path="/post/:id" component={Post} />
 
     {/*404*/}
     <Route component={null} />

@@ -25,12 +25,12 @@ class Header extends Component {
           <Link to="/landing">Home</Link><Link to="/about">About Us</Link><Link to="/help">Help</Link><Link to="/donate">Donate</Link>
           </header>
           <header className="header-main">
-            <div className="header-main__left navbar">       
+            <div className="header-main__left navbar">
                 <a href="/landing"><img src={Logo} alt="WS"/></a>
             </div>
             <div className="header-main__right navbar">
               <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Popular
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
