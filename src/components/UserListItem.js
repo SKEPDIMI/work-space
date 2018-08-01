@@ -23,7 +23,8 @@ class UserMore extends Component { // A div that opens up and shows more info ab
 
       this.setState({
         posts: 'pending'
-      })
+      });
+
       Axios.get(config.apiURL + '/api/posts?limit=5&userId='+ this.props.userId)
       .then(response => {
         let posts = response.data;
@@ -66,7 +67,7 @@ class UserMore extends Component { // A div that opens up and shows more info ab
             {
               posts.map((post, index) => {
                 return (
-                  <a key={index} href={'/post/' + post.space._id} className="list-group-item list-group-item-action flex-column align-items-start">
+                  <a key={index} href={'/post/' + post._id} className="list-group-item list-group-item-action flex-column align-items-start">
                     <div className="d-flex w-100 justify-content-between">
                       <h5 className="mb-1">{post.title} | {post.space.title}</h5>
                       <small>{post.author_name}</small>
@@ -100,6 +101,7 @@ class UserListItem extends Component {
   };
   render(){
     let user = this.props.user;
+
     return(
       <li className="user-item list-group-item">
         <div className="head">
