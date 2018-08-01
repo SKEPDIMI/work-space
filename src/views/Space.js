@@ -22,6 +22,7 @@ class Space extends Component {
     let id = values.id;
 
     if (!id) return window.location = '/popular/spaces';
+
     Axios.get(config.apiURL + '/api/spaces?id=' + id)
     .then(response => {
       this.setState({
@@ -32,7 +33,7 @@ class Space extends Component {
       this.setState({
         space: false
       })
-    })
+    });
 
     Axios.get(config.apiURL + '/api/posts?spaceId=' + id)
     .then(response => {
@@ -44,7 +45,7 @@ class Space extends Component {
       this.setState({
         posts: false
       })
-    })
+    });
   }
   render(){
     let { space, posts } = this.state;
@@ -53,7 +54,7 @@ class Space extends Component {
       <CouldNotLoad name="this space" />
     )
     let { title, description, _id } = space;
-    
+
     return (
       <div>
         <Header/>
