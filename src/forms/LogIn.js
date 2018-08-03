@@ -6,9 +6,7 @@ import axios from 'axios';
 import queryString from 'query-string'
 import { connect } from 'react-redux';
 
-import Header from '../components/global/Header.js';
-import Footer from '../components/global/Footer.js';
-import Sidemenu from '../components/global/Sidemenu.js';
+import BaseView from '../components/util/BaseView';
 
 class SignIn extends Component {
   displayError(error) {
@@ -57,36 +55,33 @@ class SignIn extends Component {
   };
   render(){
     return(
-      <div>
-      <Header/>
-      <Sidemenu/>
-      <div className="container wrapper">
-        <div className="row">
-          <div className="col">
-            <h1>Welcome back!</h1>
-            <hr/>
-            <span className="form-modal"></span>
-          </div>
-
-          <div className="col-8">
-            <form onSubmit={this.formSubmit}>
-            <div className="form-group">
-            <label>Email</label>
-            <input name="email" className="form-control" type="email" placeholder="Email" required/>
-            </div>
-            <div className="form-group">
-            <label>Password</label>
-            <input name="password" className="form-control" type="password" placeholder="Password" required/>
+      <BaseView>
+        <div className="container-wrapper">
+          <div className="row">
+            <div className="col">
+              <h1>Welcome back!</h1>
+              <hr/>
+              <span className="form-modal"></span>
             </div>
 
-            <button type="submit" className="btn btn-info">Log In</button>
-            </form>
-            <a href="signup">No account?</a>
+            <div className="col-8">
+              <form onSubmit={this.formSubmit}>
+              <div className="form-group">
+              <label>Email</label>
+              <input name="email" className="form-control" type="email" placeholder="Email" required/>
+              </div>
+              <div className="form-group">
+              <label>Password</label>
+              <input name="password" className="form-control" type="password" placeholder="Password" required/>
+              </div>
+
+              <button type="submit" className="btn btn-info">Log In</button>
+              </form>
+              <a href="signup">No account?</a>
+            </div>
           </div>
         </div>
-      </div>
-      <Footer/>
-      </div>
+      </BaseView>
     );
   }
 };

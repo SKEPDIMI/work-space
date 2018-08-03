@@ -251,6 +251,10 @@
 .content {
   min-height: 75vh;
 }
+.content-wrapper {
+  padding-top: 1em;
+  width: 100%;
+}
 
 .form-modal {
   color:transparent;

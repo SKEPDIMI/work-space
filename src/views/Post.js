@@ -12,7 +12,14 @@ class Post extends Component {
   componentDidMount() {
     let postId = this.props.match.params.id;
 
-    Axios.get(config.apiURL + '/api/posts?postId=' + postId)
+    Axios.get(config.apiURL + '/api/posts?postId=' + postId, {
+      headers: {
+        population: JSON.stringify({
+          space: 'title',
+          author: 'username'
+        })
+      }
+    })
     .then( response => {
       this.setState({
         post: response.data
@@ -41,7 +48,7 @@ class Post extends Component {
     if (post === false) return (
       <div>
         <BaseView>
-        <div className="container content">
+        <div className="content-wrapper">
           <a href={this.props.match.spaceId ? '/spaces/' + this.props.match.spaceId : '/landing' /* if the post fails to load */} className="rounded btn-link">
             <i className="fa fa-chevron-left" /> Back
           </a>
@@ -51,24 +58,24 @@ class Post extends Component {
       </div>
     )
     return(
-      <div>
-        <BaseView>
-          <div className="container content">
-            <a href={'/space?id=' + post.space._id} className="rounded btn-link"><i className="fa fa-chevron-left" /> Back</a>
-
-            <div className="post">
-              <div className="container-fluid">
-                <h3>{post.title}</h3>
-                <small className="text-muted">Posted <TimeAgo date={new Date(post.creationTime)} /> by <a href={'/user/' + post.author._id}>{post.author.username}</a></small>
-              </div>
-              <hr />
-              <div className="container">
-                {post.body}
-              </div>
+      <BaseView>
+        <div className="content-wrapper container-fluid">
+          <a href={'/space?id=' + post.space._id} className="rounded btn-link"><i className="fa fa-chevron-left" /> Back</a>
+          <div className="post">
+            <div className="post_header">
+              <h3>{post.title}</h3>
+              <small className="text-muted">Posted <TimeAgo date={new Date(post.creationTime)} /> by <a href={'/user/' + post.author._id}>{post.author.username}</a></small>
+            </div>
+            <hr />
+            <div className="post_body">
+              {post.body}
+            </div>
+            <div className="post_footer">
+              <i className="like">Like</i>
             </div>
           </div>
-        </BaseView>
-      </div>
+        </div>
+      </BaseView>
     );
   }
 };

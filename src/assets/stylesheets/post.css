@@ -1,116 +1,93 @@
 .post{
-
 	color: #212121;
-
 	background-color: #FFFFFF;
-
 	box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-
-	display: block;
-
+	display: flex;
 	margin: 3vh auto 3vh auto;
-
 	padding: 24px;
-
 	border-radius: 2px;
-
 	transition: height 0.8s, transform 1.6s;
-
 	transform-style: preserve-3d;
-
-  min-height: 75vh;
-
+	min-height: 75vh;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: left;
 }
 
-.post > *
-{
+.post > *{
 	backface-visibility: hidden;
 }
 
 .post p{
-
 	color: rgba(0, 0, 0, 0.54);
-
 	line-height: 1.6;
-
 	margin-top: 14px;
-
 	margin-bottom: 14px;
-
 }
 
 .post h1{
-
 	font-weight: 400;
-
 	margin-top: 24px;
-
 	margin-bottom: 14px;
-
 }
 
-.post a
-{
-
+.post a{
 	font-weight: bold;
-
 	text-decoration: none;
-
 }
 
 .post h2{
-
 	text-transform: uppercase;
-
 	font-weight: lighter;
-
 	margin-top: 24px;
-
 	margin-bottom: 14px;
-
 }
 
 .post ul{
-
 	list-style-position: inside;
-
 	color: rgba(0, 0, 0, 0.54);
-
 	line-height: 1.6;
-
 	margin-top: 14px;
-
 	margin-bottom: 14px;
-
 }
 
 .post.nopadding{
-
 	padding: 0;
-
 }
 
 .post.flip{
-
-	 transform: rotateY(180deg);
-
+	transform: rotateY(180deg);
 }
 
 .post.flipback{
-
-	 transform: rotateY(360deg);
-
+	transform: rotateY(360deg);
 }
 
 .post.noflip{
-
 	transform: rotateY(0deg);
-
 }
 
-.post.nopadding div.post-padding
-{
-
+.post.nopadding div.post-padding{
 	padding: 24px;
+}
 
+.post_body {
+	flex: 1;
+}
+.post_footer {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+}
+.post_footer i {
+	font-size: 1.3em;
+	text-decoration: underline;
+	cursor: pointer;
+}
+.post_footer .like.pending {
+	color: rgb(158, 158, 158);
+}
+.post_footer .like.active {
+	color:#032f3a;
 }

@@ -33,7 +33,14 @@ class Space extends Component {
       })
     });
 
-    Axios.get(config.apiURL + '/api/posts?spaceId=' + id)
+    Axios.get(config.apiURL + '/api/posts?spaceId=' + id, {
+      headers: {
+        population: JSON.stringify({
+          author: 'username',
+          space: 'title'
+        })
+      }
+    })
     .then(response => {
       this.setState({
         posts: response.data
@@ -56,7 +63,7 @@ class Space extends Component {
     return (
       <div>
         <BaseView>
-          <div className="space-main container-fluid">
+          <div className="space-main content-wrapper">
             <div className="content container-fluid">
               {
                 posts === 'pending' || this.state.space === 'pending' ? (

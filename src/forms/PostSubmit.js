@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import Header from '../components/global/Header';
-import Sidemenu from '../components/global/Sidemenu';
-import Footer from '../components/global/Footer';
+import BaseView from '../components/util/BaseView';
 import { connect } from 'react-redux';
 import config from '../config';
 import Axios from 'axios';
@@ -54,29 +52,24 @@ class PostSubmit extends Component {
       return null
     }
     return(
-      <div>
-        <Header />
-        <Sidemenu />
-        <div>
-          <div className="container-fluid content">
-            <h1>New Post</h1>
-            <hr/>
-            <span className="form-modal"></span>
-            <form onSubmit={this.handleSubmit}>
-              <div className="form-group">
-                <label>Title</label>
-                <input className="form-control" name="title" placeholder="Title"/>
-              </div>
-              <div className="form-group">
-                <label>Text</label>
-                <textarea className="form-control" name="body" placeholder="Text" required/>
-              </div>
-              <button className="btn btn-info" type="submit">Submit</button>
-            </form>
-          </div>
+      <BaseView>
+        <div className="container-wrapper">
+          <h1>New Post</h1>
+          <hr/>
+          <span className="form-modal"></span>
+          <form onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <label>Title</label>
+              <input className="form-control" name="title" placeholder="Title"/>
+            </div>
+            <div className="form-group">
+              <label>Text</label>
+              <textarea className="form-control" name="body" placeholder="Text" required/>
+            </div>
+            <button className="btn btn-info" type="submit">Submit</button>
+          </form>
         </div>
-        <Footer/>
-      </div>
+      </BaseView>
     );
   }
 };

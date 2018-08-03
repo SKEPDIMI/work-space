@@ -32,7 +32,7 @@ class VerifyEmail extends Component {
   render(){
     return(
       <BaseView>
-        <div className="content container-fluid">
+        <div className="content-wrapper">
           <h1>Verifying email</h1>
           <hr/>
           <p>{this.state.message}</p>

@@ -14,7 +14,7 @@ class PopularSpaces extends Component {
   render(){
     return(
       <BaseView>
-        <div className="content">
+        <div className="content-wrapper">
           <div className="d-flex w-100 justify-content-between align-items-center container-fluid">
             <h1>Popular Spaces</h1> <a href="/space/create">Create your own</a>
           </div>

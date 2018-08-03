@@ -48,7 +48,7 @@ render(){
       return(
       <div>
         <BaseView>
-        <div className="wrapper">
+        <div className="content-wrapper">
             <h1>Looks like you're not logged in yet</h1>
             <p>Try <a href="/login">logging in</a> or going <a href="/">back home</a>.</p>
         </div>

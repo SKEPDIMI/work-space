@@ -5,9 +5,7 @@ import config from '../config';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
-import Header from '../components/global/Header.js';
-import Footer from '../components/global/Footer.js';
-import Sidemenu from '../components/global/Sidemenu.js';
+import BaseView from '../components/util/BaseView';
 
 class SignIn extends Component {
   componentWillReceiveProps(nextProps){
@@ -64,10 +62,8 @@ class SignIn extends Component {
   render(){
     if (!this.state.done) {
       return (
-        <div>
-          <Header/>
-          <Sidemenu/>
-          <div className="container wrapper">
+        <BaseView>
+          <div className="container-wrapper">
             <div className="row">
               <div className="col">
                 <h1>Welcome to WorkSpace!</h1>
@@ -100,20 +96,16 @@ class SignIn extends Component {
               </div>
             </div>
           </div>
-          <Footer/>
-        </div>
+        </BaseView>
       )
     } else {
       return(
-        <div>
-          <Header/>
-          <Sidemenu/>
+        <BaseView>
           <div className="container-fluid content">
             <h1>Almost done!</h1>
             <p>We have sent you a message at the email provided. Please check your inbox to continue. See you there!</p>
           </div>
-          <Footer/>
-        </div>
+        </BaseView>
       )
     }
   }

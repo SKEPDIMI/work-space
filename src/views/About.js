@@ -6,7 +6,7 @@ class About extends Component {
     return(
       <div>
         <BaseView>
-          <div className="container-fluid content">
+          <div className="content-wrapper">
             <h1>About Workspace</h1>
             <hr />
             <div className="container-fluid">

@@ -35,7 +35,7 @@ class PopularUsers extends Component {
       (
         this.state.users ? (
           <BaseView>
-            <div className="content container-fluid">
+            <div className="content-wrapper">
               <h1>Popular Users</h1>
               <hr />
               <p className="subtitle">{this.state.display}</p>

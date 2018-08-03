@@ -25,7 +25,13 @@ class UserMore extends Component { // A div that opens up and shows more info ab
         posts: 'pending'
       });
 
-      Axios.get(config.apiURL + '/api/posts?limit=5&userId='+ this.props.userId)
+      Axios.get(config.apiURL + '/api/posts?limit=5&userId='+ this.props.userId, {
+        headers: {
+          population: JSON.stringify({
+            'space': 'title'
+          })
+        }
+      })
       .then(response => {
         let posts = response.data;
 
@@ -54,12 +60,6 @@ class UserMore extends Component { // A div that opens up and shows more info ab
           <Spinner size={'medium'} />
         </div>
       )
-    } else if (!posts) {
-      return (
-        <div className="more" ref={this.moreRef}>
-          <h5>Could not load users posts</h5>
-        </div>
-      )
     } else if (posts.length > 0) {
       return(
         <div className="more" ref={this.moreRef}>
@@ -79,10 +79,9 @@ class UserMore extends Component { // A div that opens up and shows more info ab
               })
             }
           </ul>
-
         </div>
       )
-    } else if (posts.length === 0) {
+    } else if (!posts) {
       return (
         <div className="more" ref={this.moreRef}>
           <h5>This user has no posts</h5>
