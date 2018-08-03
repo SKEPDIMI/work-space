@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import config from '../../config';
-import Header from '../../components/global/Header';
-import Sidemenu from '../../components/global/Sidemenu';
-import Footer from '../../components/global/Footer';
 import LoadingScreen from '../../views/util/LoadingScreen';
 import UserListItem from '../../components/UserListItem';
 import CouldNotLoad from '../../components/util/CouldNotLoad'
 
 import Axios from 'axios';
 import '../../assets/stylesheets/users.css';
+import BaseView from '../../components/util/BaseView';
 
 class PopularUsers extends Component {
   constructor(props){
@@ -36,9 +34,7 @@ class PopularUsers extends Component {
       this.state.loading === true ? <LoadingScreen /> :
       (
         this.state.users ? (
-          <div>
-            <Header/>
-            <Sidemenu/>
+          <BaseView>
             <div className="content container-fluid">
               <h1>Popular Users</h1>
               <hr />
@@ -54,8 +50,7 @@ class PopularUsers extends Component {
             <aside>
 
             </aside>
-            <Footer/>
-          </div>) : (<CouldNotLoad name="popular users" />)
+          </BaseView>) : (<CouldNotLoad name="popular users" />)
       )
     );
   }

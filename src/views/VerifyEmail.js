@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import Header from '../components/global/Header';
-import Footer from '../components/global/Footer';
-import Sidemenu from '../components/global/Sidemenu';
 import Axios from 'axios';
 import config from '../config';
+import BaseView from '../components/util/BaseView';
 
 class VerifyEmail extends Component {
   componentDidMount() {
@@ -33,16 +31,13 @@ class VerifyEmail extends Component {
   };
   render(){
     return(
-      <div>
-        <Header/>
-        <Sidemenu/>
+      <BaseView>
         <div className="content container-fluid">
           <h1>Verifying email</h1>
           <hr/>
           <p>{this.state.message}</p>
         </div>
-        <Footer/>
-      </div>
+      </BaseView>
     );
   }
 };

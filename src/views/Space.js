@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import '../assets/stylesheets/space.css';
 
-import Header from '../components/global/Header';
-import Sidemenu from '../components/global/Sidemenu';
-import Footer from '../components/global/Footer';
+import BaseView from '../components/util/BaseView';
 import Spinner from '../components/util/Spinner';
 import PostItem from '../components/PostItem';
 import CouldNotLoad from '../components/util/CouldNotLoad';
@@ -57,36 +55,35 @@ class Space extends Component {
 
     return (
       <div>
-        <Header/>
-        <Sidemenu/>
-        <div className="space-main container-fluid">
-          <div className="content container-fluid">
-            {
-              posts === 'pending' || this.state.space === 'pending' ? (
-                <div>
-                  <Spinner size={'medium'}/>
-                </div>
-              ) : posts.length === 0 ? (
-                <p>This space has no posts</p>
-              ) : this.state.posts.length > 0 ? (
-                posts.map((post, i) => {
-                  return <PostItem key={i} data={post}/>
-                })
-              ) : (
-                <p>Could not load posts</p>
-              )
-            }
+        <BaseView>
+          <div className="space-main container-fluid">
+            <div className="content container-fluid">
+              {
+                posts === 'pending' || this.state.space === 'pending' ? (
+                  <div>
+                    <Spinner size={'medium'}/>
+                  </div>
+                ) : posts.length === 0 ? (
+                  <p>This space has no posts</p>
+                ) : this.state.posts.length > 0 ? (
+                  posts.map((post, i) => {
+                    return <PostItem key={i} data={post}/>
+                  })
+                ) : (
+                  <p>Could not load posts</p>
+                )
+              }
+            </div>
+            <div className="content">
+              <h1>{title}</h1>
+              <hr />
+              <p>{description}</p>
+              <button className="btn info">
+                <a href={"submit/" + _id}>Create post</a>
+              </button>
+            </div>
           </div>
-          <div className="content">
-            <h1>{title}</h1>
-            <hr />
-            <p>{description}</p>
-            <button className="btn info">
-              <a href={"submit/" + _id}>Create post</a>
-            </button>
-          </div>
-        </div>
-        <Footer/>
+        </BaseView>
       </div>
     );
   }

@@ -40,6 +40,9 @@ class SignIn extends Component {
         }
       })
       .catch( error => {
+        console.log(
+          JSON.stringify(error)
+        )
         if (!error.response.data) error.response.data.message = 'Failed to log in!'
         this.displayError(error.response.data.message);
       })

@@ -1,3 +1,5 @@
+
+
 .header-master {
   top: 0;
   left: 0;
@@ -247,7 +249,6 @@
 }
 
 .content {
-  margin-top: 1em;
   min-height: 75vh;
 }
 

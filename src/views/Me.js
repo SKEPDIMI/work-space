@@ -1,8 +1,5 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
-import Header from '../components/global/Header';
-import Footer from '../components/global/Footer';
-import Sidemenu from '../components/global/Sidemenu';
 import LoadingScreen from '../views/util/LoadingScreen';
 
 import $ from 'jquery';
@@ -10,6 +7,7 @@ import axios from 'axios';
 import config from '../config';
 
 import '../assets/stylesheets/account.css';
+import BaseView from '../components/util/BaseView';
 
 class Me extends Component {
   onEnabled() {
@@ -49,58 +47,56 @@ render(){
     if (!this.props.user) {
       return(
       <div>
-        <Header/><Sidemenu/>
+        <BaseView>
         <div className="wrapper">
             <h1>Looks like you're not logged in yet</h1>
             <p>Try <a href="/login">logging in</a> or going <a href="/">back home</a>.</p>
         </div>
-        <Footer/>
+        </BaseView>
       </div>
       )
     } else if (this.props.user === 'pending') {
       return <LoadingScreen />
     } else {
       return(
-        <div>
-        <Header/><Sidemenu/>
-        <div className="account-dashboard">
-          <header>
-            <img src={config.apiURL + "/api/user/image?id=" + this.props.user._id} className="avatar" alt="avatar"/>
-            <div>
-              <p>{this.props.user.username}</p>
-              {this.props.user.verified ? null : <p className="text-muted">Unverified</p>}
-            </div>
-          </header>
-          <form onSubmit={this.formSubmit} onChange={this.onEnabled} className="container" encType="multipart/form-data">
-            <p className="form-modal"></p>
-            <div className="form-group">
-              <label>Email</label>
-              <input name="email" className="form-control is-disabled" type="email" value={this.props.user.email} readOnly/>
-            </div>
-            <div className="form-group">
-              <label>Password</label>
-              <input name="password" className="form-control" type="password" autoComplete="off" required/>
-            </div>
-            <hr/>
+        <BaseView>
+          <div className="account-dashboard">
+            <header>
+              <img src={config.apiURL + "/api/user/image?id=" + this.props.user._id} className="avatar" alt="avatar"/>
+              <div>
+                <p>{this.props.user.username}</p>
+                {this.props.user.verified ? null : <p className="text-muted">Unverified</p>}
+              </div>
+            </header>
+            <form onSubmit={this.formSubmit} onChange={this.onEnabled} className="container" encType="multipart/form-data">
+              <p className="form-modal"></p>
               <div className="form-group">
-                <label>Username: {this.props.user.username}</label>
-                <input name="newUsername" className="form-control" autoComplete="off" placeholder={this.props.user.username}/>
+                <label>Email</label>
+                <input name="email" className="form-control is-disabled" type="email" value={this.props.user.email} readOnly/>
               </div>
               <div className="form-group">
+                <label>Password</label>
+                <input name="password" className="form-control" type="password" autoComplete="off" required/>
+              </div>
+              <hr/>
+                <div className="form-group">
+                  <label>Username: {this.props.user.username}</label>
+                  <input name="newUsername" className="form-control" autoComplete="off" placeholder={this.props.user.username}/>
+                </div>
+                <div className="form-group">
 
-              </div>
-              <label>Profile picture</label>
-                <input name="avatar" className="form-control" type="file" accept="image/*"/>
-              <div className="form-group">
-                <label>Bio</label>
-                <textarea name="bio" className="form-control" placeholder={this.props.user.bio}></textarea>
-              </div>
+                </div>
+                <label>Profile picture</label>
+                  <input name="avatar" className="form-control" type="file" accept="image/*"/>
+                <div className="form-group">
+                  <label>Bio</label>
+                  <textarea name="bio" className="form-control" placeholder={this.props.user.bio}></textarea>
+                </div>
 
-              <button className="btn btn-info" type="submit" disabled>Update</button>
-          </form>
-        </div>
-        <Footer/>
-        </div>
+                <button className="btn btn-info" type="submit" disabled>Update</button>
+            </form>
+          </div>
+        </BaseView>
       )
     }
 }
