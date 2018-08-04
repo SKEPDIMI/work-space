@@ -18,7 +18,6 @@ class UserMore extends Component { // A div that opens up and shows more info ab
     let moreElement = $(this.moreRef.current);
 
     if (nextProps.active) {
-      $('.more').removeClass('active'); // Close all other user-more components
       $(moreElement).addClass('active'); // Open ours only
 
       this.setState({
@@ -38,7 +37,7 @@ class UserMore extends Component { // A div that opens up and shows more info ab
         this.setState({ posts })
       })
       .catch(err => {
-        this.setState({ posts: false })
+        this.setState({ posts: [] })
       })
     } else {
       $(moreElement).removeClass('active');
@@ -81,7 +80,7 @@ class UserMore extends Component { // A div that opens up and shows more info ab
           </ul>
         </div>
       )
-    } else if (!posts) {
+    } else if (posts.length === 0) {
       return (
         <div className="more" ref={this.moreRef}>
           <h5>This user has no posts</h5>

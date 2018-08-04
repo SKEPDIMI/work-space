@@ -42,7 +42,7 @@ class PopularUsers extends Component {
               <ul className="list-group">
                 {this.state.users.map((user, i) => {
                   return (
-                    <UserListItem key={i} user={user} />
+                    <UserListItem key={i} user={user}/>
                   )
                 })}
               </ul>

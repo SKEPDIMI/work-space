@@ -102,7 +102,6 @@ class Post extends Component {
     super(props);
 
     this.state = {
-      space: 'pending',
       post: 'pending',
       likeClass: 'like pending'
     };
@@ -128,7 +127,7 @@ class Post extends Component {
     return(
       <BaseView>
         <div className="content-wrapper container-fluid">
-          <a href={'/space?id=' + post.space._id} className="rounded btn-link"><i className="fa fa-chevron-left" /> Back</a>
+          <a href={'/space?id=' + post.space._id} className="rounded btn-link"><i className="fa fa-chevron-left" /> Back to {post.space.title || null}</a>
           <div className="post">
             <div className="post_header">
               <h3>{post.title}</h3>

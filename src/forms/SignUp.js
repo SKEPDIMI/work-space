@@ -8,10 +8,8 @@ import { connect } from 'react-redux';
 import BaseView from '../components/util/BaseView';
 
 class SignIn extends Component {
-  componentWillReceiveProps(nextProps){
-    let { user } = nextProps;
-    if (user) {
-      console.log('user is ' + user)
+  componentDidMount(){
+    if (this.props.user) {
       window.location = '/'
     }
   }

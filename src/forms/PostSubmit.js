@@ -7,11 +7,8 @@ import $ from 'jquery';
 
 class PostSubmit extends Component {
   componentDidMount() {
-    if (!this.props.match.params.id) window.location = ''
-  }
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.match.params.id) {
-      return window.location = '/'
+    if (!this.props.match.params.id)  {
+      window.location = '/'
     }
   }
   displayError(error) {
@@ -27,9 +24,12 @@ class PostSubmit extends Component {
     let formData = new FormData(event.target);
 
     formData.append('spaceId', this.props.match.params.id);
-    formData.append('token', this.props.user.token);
 
-    Axios.post(config.apiURL + '/api/posts', formData)
+    Axios.post(config.apiURL + '/api/posts', formData, {
+      headers: {
+        token: this.props.user.token
+      }
+    })
     .then( response => {
       this.displaySuccess(response.data.message);
       window.location = '/post/' + response.data.postId

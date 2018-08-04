@@ -9,16 +9,16 @@ import { connect } from 'react-redux';
 import BaseView from '../components/util/BaseView';
 
 class SignIn extends Component {
+  componentWillMount(){
+    if (this.props.user === true) {
+      window.location = '/'
+    }
+  }
   displayError(error) {
     $(".form-modal").removeClass('success').addClass('failure').text(error);
   }
   displaySuccess(message) {
     $(".form-modal").removeClass('failure').addClass('success').text(message);
-  }
-  componentWillMount(){
-    if (this.props.user === true) {
-      window.location = '/'
-    }
   }
   formSubmit(event){
     event.preventDefault()
