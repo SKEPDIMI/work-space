@@ -64,7 +64,7 @@ class PostSubmit extends Component {
             </div>
             <div className="form-group">
               <label>Text</label>
-              <textarea className="form-control" name="body" placeholder="Text" required/>
+              <textarea className="form-control" name="body" placeholder="Text" style={{minHeight: '50vh'}} required/>
             </div>
             <button className="btn btn-info" type="submit">Submit</button>
           </form>
