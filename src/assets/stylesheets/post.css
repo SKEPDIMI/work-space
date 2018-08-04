@@ -91,3 +91,40 @@
 .post_footer .like.active {
 	color:green;
 }
+
+.comments {
+  max-height: 30vh;
+  overflow-y: auto;
+  margin-bottom: 1em;
+}
+.comments img {
+	margin-right: 10px;
+}
+.comments h5 {
+	margin: 0;
+}
+.comments .pull-right {
+	margin-left: auto;
+}
+
+.post_wrapper form {
+	width: 100%;
+	display: inline-flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.post_wrapper form .input_wrapper {
+	padding: .5em;
+	flex: 1;
+}
+
+.post_wrapper form .input_wrapper > textarea {
+	width: 100%;
+}
+
+.post_wrapper form .btn {
+	width: 100%;
+}

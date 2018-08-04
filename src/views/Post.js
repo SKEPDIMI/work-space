@@ -8,6 +8,7 @@ import LoadingScreen from '../views/util/LoadingScreen';
 import Axios from 'axios';
 import config from '../config';
 import BaseView from '../components/util/BaseView';
+import Comment from '../components/Comment';
 
 class Post extends Component {
   likeToggle() {
@@ -80,7 +81,8 @@ class Post extends Component {
       headers: {
         population: JSON.stringify({
           space: 'title',
-          author: 'username'
+          author: 'username',
+          'comments.user': 'username'
         })
       }
     })
@@ -98,6 +100,24 @@ class Post extends Component {
       })
     })
   }
+  commentSubmit(event) {
+    event.preventDefault();
+
+    let formData = new FormData(event.target);
+    formData.append('postId', this.state.post._id);
+
+    Axios.put(config.apiURL + '/api/posts', formData, {
+      headers: {
+        token: this.props.user.token
+      }
+    })
+    .then(response => {
+      window.location.reload()
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
   constructor(props){
     super(props);
 
@@ -108,6 +128,7 @@ class Post extends Component {
   };
   render(){
     let { post } = this.state;
+    let { user } = this.props;
 
     if (post === 'pending') return (
       <LoadingScreen />
@@ -115,7 +136,7 @@ class Post extends Component {
     if (post === false) return (
       <div>
         <BaseView>
-        <div className="content-wrapper">
+        <div className="content-wrapper post_wrapper">
           <a href={this.props.match.spaceId ? '/spaces/' + this.props.match.spaceId : '/landing' /* if the post fails to load */} className="rounded btn-link">
             <i className="fa fa-chevron-left" /> Back
           </a>
@@ -126,7 +147,7 @@ class Post extends Component {
     )
     return(
       <BaseView>
-        <div className="content-wrapper container-fluid">
+        <div className="content-wrapper container-fluid post_wrapper">
           <a href={'/space?id=' + post.space._id} className="rounded btn-link"><i className="fa fa-chevron-left" /> Back to {post.space.title || null}</a>
           <div className="post">
             <div className="post_header">
@@ -141,6 +162,25 @@ class Post extends Component {
               <i className={this.state.likeClass} onClick={this.likeToggle.bind(this)}>like</i>
             </div>
           </div>
+          <h4>{post.comments.length} comments on "{post.title}"</h4>
+          <hr/>
+          {post.comments.length > 0 ?
+            (<div className="comments">
+                {
+                  post.comments.map((comment, i) => <Comment key={i} data={comment} />)
+                }
+              </div>)
+            :
+            <p>Be the first to comment!</p>}
+
+            {user ? (
+              <form onSubmit={this.commentSubmit.bind(this)} >
+                <img src={config.apiURL + '/api/user/image?id=' + user._id} className="avatar"/>
+                <div className="input_wrapper">
+                  <textarea name="addComment" placeholder="Enter a comment" minLength="1" maxLength="1520"/>
+                </div>
+                <button className="btn btn-info">Submit</button>
+              </form>) : null}
         </div>
       </BaseView>
     );

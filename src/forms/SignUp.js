@@ -61,7 +61,7 @@ class SignIn extends Component {
     if (!this.state.done) {
       return (
         <BaseView>
-          <div className="container-wrapper">
+          <div className="content-wrapper container-fluid">
             <div className="row">
               <div className="col">
                 <h1>Welcome to WorkSpace!</h1>
@@ -99,7 +99,7 @@ class SignIn extends Component {
     } else {
       return(
         <BaseView>
-          <div className="container-fluid content">
+          <div className="container-fluid content-wrapper">
             <h1>Almost done!</h1>
             <p>We have sent you a message at the email provided. Please check your inbox to continue. See you there!</p>
           </div>

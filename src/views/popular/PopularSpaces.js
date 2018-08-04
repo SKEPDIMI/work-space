@@ -12,6 +12,8 @@ class PopularSpaces extends Component {
     this.props.fetchPopularSpaces()
   }
   render(){
+    let { spaces } = this.props;
+
     return(
       <BaseView>
         <div className="content-wrapper">
@@ -19,8 +21,8 @@ class PopularSpaces extends Component {
             <h1>Popular Spaces</h1> <a href="/space/create">Create your own</a>
           </div>
           <div className="row-fluid">
-            {this.props.spaces === 'pending' ? <LoadingScreen /> : Array.isArray(this.props.spaces) ? this.props.spaces.map((space, i) => {
-              return (<SpaceCard key={i} space={space}/>)
+            {spaces === 'pending' ? <LoadingScreen /> : Array.isArray(spaces) ? spaces.map((space, i) => {
+              return (<SpaceCard key={i} data={space}/>)
             }) : <CouldNotLoad name="popular spaces" />}
           </div>
         </div>

@@ -53,7 +53,7 @@ class PostSubmit extends Component {
     }
     return(
       <BaseView>
-        <div className="container-wrapper">
+        <div className="content-wrapper container-fluid">
           <h1>New Post</h1>
           <hr/>
           <span className="form-modal"></span>

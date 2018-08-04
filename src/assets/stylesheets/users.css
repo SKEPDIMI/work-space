@@ -3,6 +3,10 @@
   width: 75px;
   border-radius: 50%;
 }
+.avatar.small {
+  height: 30px;
+  width: 30px;
+}
 
 .user-item {
   display: inline-flex;

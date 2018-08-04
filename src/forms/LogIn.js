@@ -30,7 +30,7 @@ class SignIn extends Component {
       .then( response => {
         localStorage.setItem('workspaceToken', JSON.stringify({token:response.data.token}));
 
-        let values = queryString.parse(this.props.location.search);
+        let values = queryString.parse(window.location.search);
         if (values.redirect) {
           window.location = values.redirect
         } else {
@@ -38,10 +38,6 @@ class SignIn extends Component {
         }
       })
       .catch( error => {
-        console.log(
-          JSON.stringify(error)
-        )
-        if (!error.response.data) error.response.data.message = 'Failed to log in!'
         this.displayError(error.response.data.message);
       })
 
@@ -56,7 +52,7 @@ class SignIn extends Component {
   render(){
     return(
       <BaseView>
-        <div className="container-wrapper">
+        <div className="content-wrapper container-fluid">
           <div className="row">
             <div className="col">
               <h1>Welcome back!</h1>
