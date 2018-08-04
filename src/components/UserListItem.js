@@ -73,7 +73,7 @@ class UserMore extends Component { // A div that opens up and shows more info ab
                       <small>{post.author_name}</small>
                     </div>
                     <p className="mb-1">{post.body}</p>
-                    <small><TimeAgo date={new Date(post.creationTime)} />, {Object.values(post.votes).length} votes.</small>
+                    <small><TimeAgo date={new Date(post.creationTime)} />, {post.likes.length} likes.</small>
                   </a>
                 )
               })

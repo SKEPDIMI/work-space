@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import '../assets/stylesheets/post.css';
 
 import TimeAgo from 'react-timeago';
@@ -9,6 +10,69 @@ import config from '../config';
 import BaseView from '../components/util/BaseView';
 
 class Post extends Component {
+  likeToggle() {
+    let { user } = this.props;
+    let { post } = this.state;
+    let postId = this.props.match.params.id;
+
+    if (this.state.likeClass === 'like pending') return
+
+    this.setState({likeClass: 'like pending'});
+
+    const failure = () => {
+      this.setState({
+        likeClass: 'like'
+      })
+    };
+
+    if (!this.state.post.likes.includes(user._id)) {
+      Axios.put(config.apiURL + '/api/posts', {
+        postId,
+        like: true
+      }, {
+        headers: {
+          token: user.token
+        }
+      })
+      .then(response => {
+        let likes = post.likes
+
+        this.setState({
+          likeClass: 'like active',
+          post: {
+            ...this.state.post,
+            likes: [...likes, user._id]
+          }
+        })
+      })
+      .catch((error) => {
+        failure()
+      });
+    } else {
+      Axios.put(config.apiURL + '/api/posts', {
+        postId,
+        unlike: true
+      }, {
+        headers: {
+          token: user.token
+        }
+      })
+      .then(response => {
+        let likes = post.likes
+
+        this.setState({
+          likeClass: 'like',
+          post: {
+            ...this.state.post,
+            likes: likes.filter(v => v !== user._id)
+          }
+        })
+      })
+      .catch(() => {
+        failure()
+      });
+    }
+  }
   componentDidMount() {
     let postId = this.props.match.params.id;
 
@@ -21,8 +85,11 @@ class Post extends Component {
       }
     })
     .then( response => {
+      let post = response.data;
+
       this.setState({
-        post: response.data
+        post,
+        likeClass: post.likes.includes(this.props.user._id) ? 'like active' : 'like'
       })
     })
     .catch( error => {
@@ -36,7 +103,8 @@ class Post extends Component {
 
     this.state = {
       space: 'pending',
-      post: 'pending'
+      post: 'pending',
+      likeClass: 'like pending'
     };
   };
   render(){
@@ -71,7 +139,7 @@ class Post extends Component {
               {post.body}
             </div>
             <div className="post_footer">
-              <i className="like">Like</i>
+              <i className={this.state.likeClass} onClick={this.likeToggle.bind(this)}>like</i>
             </div>
           </div>
         </div>
@@ -80,4 +148,7 @@ class Post extends Component {
   }
 };
 
-export default Post;
+const mapStateToProps = state => ({
+  user: state.user
+})
+export default connect(mapStateToProps)(Post);

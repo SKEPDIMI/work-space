@@ -27,9 +27,13 @@ export const fetchUser = async () => {
     if (!workspaceToken) return setUser(false);
 
     try {
-      let response = await axios.get(config.apiURL + '/api/auth?token=' + workspaceToken.token);
+      let response = await axios.get(config.apiURL + '/api/auth', {
+        headers: {
+          token: workspaceToken.token
+        }
+      });
       let user = response.data;
-
+      
       user.token = workspaceToken.token;
 
       return setUser(user);
