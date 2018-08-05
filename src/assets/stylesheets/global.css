@@ -22,6 +22,8 @@
 
   background-image: url('https://ak5.picdn.net/shutterstock/videos/21438955/thumb/1.jpg');
   background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 .header-dropdown a {
   color: white;
@@ -246,7 +248,24 @@
 .slide{
   width:100%;
   height:100vh;
+  padding-top: 1em;
   text-align: center;
+}
+
+.fade-in-text {
+  text-align: left;
+  opacity: 0;
+  transform: translateX(50px);
+  transition: .7s all ease-in-out;
+}
+.fade-in-text.main {
+  color: #636363;
+  margin-bottom: 2em;
+  margin-bottom: 2em;
+}
+.fade-in-text.active {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .loading-screen, .error-screen {

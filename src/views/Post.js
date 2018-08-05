@@ -19,7 +19,7 @@ class Post extends Component {
 
     if (this.state.likeClass === 'like pending') return
 
-    this.setState({likeClass: 'like pending'});
+    this.setState({ likeClass: 'like pending' });
 
     const failure = (message) => {
       this.props.showError(message);
@@ -96,7 +96,6 @@ class Post extends Component {
     .then( response => {
       if (response.ok) {
         let post = response.data;
-        console.log(post)
 
         this.setState({
           post,
@@ -149,7 +148,7 @@ class Post extends Component {
       <div>
         <BaseView>
         <div className="content-wrapper post_wrapper">
-          <a href={this.props.match.spaceId ? '/spaces/' + this.props.match.spaceId : '/landing' /* if the post fails to load */} className="rounded btn-link">
+          <a href={this.props.match.spaceId ? '/spaces?id=' + this.props.match.spaceId : '/landing' /* if the post fails to load */} className="rounded btn-link">
             <i className="fa fa-chevron-left" /> Back
           </a>
           <h1>Sorry! This post could not be loaded!</h1>

@@ -99,13 +99,13 @@ class UserListItem extends Component {
     };
   };
   render(){
-    let user = this.props.user;
+    let { user } = this.props;
 
     return(
-      <li className="user-item list-group-item">
+      <li className="user-item list-group-item" onMouseLeave={() => this.setState({expanded: false})}>
         <div className="head">
           <div className="img-container">
-            <img className="avatar" src={api.getBaseURL() + '/api/user/image?id=' + user._id} alt="avatar"/>
+            <img className="avatar" src={api.getBaseURL() + '/user/image?id=' + user._id} alt="avatar"/>
           </div>
           <div className="creds flex justify-content-evenly flex-direction-column align-items-start">
             <h5 className="mb-1">{user.username}</h5>

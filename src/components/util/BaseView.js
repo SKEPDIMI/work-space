@@ -6,7 +6,7 @@ import Footer from '../global/Footer';
 class BaseView extends Component {
   render(){
     return(
-      <div>
+      <div className="base-view">
         <Header/>
         <Sidemenu/>
           <div className="content">

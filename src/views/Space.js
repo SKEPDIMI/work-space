@@ -6,6 +6,7 @@ import '../assets/stylesheets/space.css';
 import BaseView from '../components/util/BaseView';
 import Spinner from '../components/util/Spinner';
 import PostItem from '../components/PostItem';
+import LoadingScreen from './util/LoadingScreen';
 import CouldNotLoad from '../components/util/CouldNotLoad';
 
 import api from '../api';
@@ -66,6 +67,9 @@ class Space extends Component {
   render(){
     let { space, posts } = this.state;
 
+    if (space === 'pending') {
+      return <LoadingScreen />
+    }
     if (!space) return (
       <CouldNotLoad name="this space" />
     )
@@ -97,7 +101,7 @@ class Space extends Component {
               <hr />
               <p>{description}</p>
               <a className="btn btn-info" href={"submit/" + _id}>Create post</a>
-              
+
             </div>
           </div>
         </BaseView>

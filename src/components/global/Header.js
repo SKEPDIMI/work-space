@@ -31,7 +31,7 @@ class Header extends Component {
                 <a href="/landing"><img src={Logo} alt="WS"/></a>
             </div>
             <div className="header-main__right navbar">
-              <a className="nav-link" onClick={() => $('.header-dropdown').slideToggle()}>
+              <a href="#" className="nav-link" onClick={() => $('.header-dropdown').slideToggle()}>
                 Popular
               </a>
               {!this.props.user ? ([
@@ -44,7 +44,7 @@ class Header extends Component {
               </div>
             </div>
           </header>
-          <div className="header-dropdown">
+          <div className="header-dropdown" onMouseLeave={() => $('.header-dropdown').slideUp()}>
             <a href="/popular/spaces">Spaces</a>
             <a href="/popular/users">Users</a>
             <a href="/popular/posts">Posts</a>
