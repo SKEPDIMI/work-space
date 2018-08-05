@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { removeError } from '../../redux/actions';
+import $ from 'jquery';
 
 class GlobalError extends Component {
   componentDidUpdate() {
@@ -20,7 +21,9 @@ class GlobalError extends Component {
       message,
       class: 'global-error active'
     });
-    
+
+    $('html,body').animate({ scrollTop: 0 }, 200)
+
     // Give user time to read message
     let timeToRead = 3000 - (errorMessages.length * 90); // More errors means less time to read through them
 
