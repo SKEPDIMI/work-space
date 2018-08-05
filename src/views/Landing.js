@@ -58,8 +58,8 @@ class Landing extends Component {
 							</div>
 							<div className="row-fluid">
 								<blockquote className="blockquote text-left fade-in-text">
-									<p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-  								<footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+									<p className="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+  								<footer className="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
 								</blockquote>
 							</div>
 						</div>
