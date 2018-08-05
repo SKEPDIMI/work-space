@@ -186,7 +186,7 @@ class Post extends Component {
 
             {user ? (
               <form onSubmit={this.commentSubmit.bind(this)} >
-                <img src={api.getBaseURL() + '/api/user/image?id=' + user._id} className="avatar"/>
+                <img src={api.getBaseURL() + '/user/image?id=' + user._id} className="avatar"/>
                 <div className="input_wrapper">
                   <textarea name="addComment" placeholder="Enter a comment" minLength="1" maxLength="1520"/>
                 </div>
