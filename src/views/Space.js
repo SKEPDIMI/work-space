@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { showError } from '../redux/actions';
 import '../assets/stylesheets/space.css';
 
 import BaseView from '../components/util/BaseView';
@@ -6,8 +8,7 @@ import Spinner from '../components/util/Spinner';
 import PostItem from '../components/PostItem';
 import CouldNotLoad from '../components/util/CouldNotLoad';
 
-import Axios from '../../node_modules/axios';
-import config from '../config';
+import api from '../api';
 import queryString from 'query-string';
 
 class Space extends Component {
@@ -21,19 +22,22 @@ class Space extends Component {
 
     if (!id) return window.location = '/popular/spaces';
 
-    Axios.get(config.apiURL + '/api/spaces?id=' + id)
+    await api.get('/spaces?id=' + id)
     .then(response => {
-      this.setState({
-        space: response.data
-      })
-    })
-    .catch(error => {
-      this.setState({
-        space: false
-      })
+      if (response.ok) {
+        this.setState({
+          space: response.data
+        })
+      } else {
+        this.props.showError(response.data.message || 'Failed to load space.');
+
+        this.setState({
+          space: false
+        });
+      }
     });
 
-    Axios.get(config.apiURL + '/api/posts?spaceId=' + id, {
+    api.get('/posts?spaceId=' + id, {
       headers: {
         population: JSON.stringify({
           author: 'username',
@@ -42,14 +46,17 @@ class Space extends Component {
       }
     })
     .then(response => {
-      this.setState({
-        posts: response.data
-      })
-    })
-    .catch(err => {
-      this.setState({
-        posts: false
-      })
+      if (response.ok) {
+        this.setState({
+          posts: response.data
+        })
+      } else {
+        this.props.showError(response.data.message || 'Failed to load posts.');
+
+        this.setState({
+          posts: false
+        });
+      }
     });
   }
   render(){
@@ -63,8 +70,8 @@ class Space extends Component {
     return (
       <div>
         <BaseView>
-          <div className="space-main content-wrapper">
-            <div className="content container-fluid">
+          <div className="space-main content-wrapper container-fluid">
+            <div className="content">
               {
                 posts === 'pending' || this.state.space === 'pending' ? (
                   <div>
@@ -81,13 +88,12 @@ class Space extends Component {
                 )
               }
             </div>
-            <div className="content">
-              <h1>{title}</h1>
+            <div className="aside">
+              <h2>{title}</h2>
               <hr />
               <p>{description}</p>
-              <button className="btn info">
-                <a href={"submit/" + _id}>Create post</a>
-              </button>
+              <a className="btn btn-info" href={"submit/" + _id}>Create post</a>
+              
             </div>
           </div>
         </BaseView>
@@ -96,4 +102,7 @@ class Space extends Component {
   }
 };
 
-export default Space;
+export default connect(
+  null,
+  { showError }
+)(Space);

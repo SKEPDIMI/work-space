@@ -3,13 +3,18 @@ import React, {Component} from 'react';
 import SpaceCard from '../../components/SpaceCard';
 import CouldNotLoad from '../../components/util/CouldNotLoad';
 import { connect } from 'react-redux';
-import { fetchPopularSpaces } from '../../redux/actions';
+import { fetchPopularSpaces, showError } from '../../redux/actions';
 import LoadingScreen from '../util/LoadingScreen';
 import BaseView from '../../components/util/BaseView';
 
 class PopularSpaces extends Component {
   componentDidMount() {
     this.props.fetchPopularSpaces()
+  }
+  componentDidUpdate() {
+    if (this.props.spaces.length === 0) {
+      this.props.showError('Could not load popular spaces.')
+    }
   }
   render(){
     let { spaces } = this.props;
@@ -35,4 +40,10 @@ const mapStateToProps = state => ({
   spaces: state.popularSpaces
 });
 
-export default connect(mapStateToProps, {fetchPopularSpaces})(PopularSpaces);
+export default connect(
+  mapStateToProps, 
+  {
+    fetchPopularSpaces,
+    showError
+  }
+)(PopularSpaces);

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import config from '../config';
 import $ from 'jquery';
-import Axios from 'axios';
+import api from '../api';
 import Spinner from './util/Spinner';
 import TimeAgo from 'react-timeago';
 
@@ -24,7 +23,7 @@ class UserMore extends Component { // A div that opens up and shows more info ab
         posts: 'pending'
       });
 
-      Axios.get(config.apiURL + '/api/posts?limit=5&userId='+ this.props.userId, {
+      api.get('/posts?limit=5&userId='+ this.props.userId, {
         headers: {
           population: JSON.stringify({
             'space': 'title'
@@ -32,13 +31,12 @@ class UserMore extends Component { // A div that opens up and shows more info ab
         }
       })
       .then(response => {
-        let posts = response.data;
-
-        this.setState({ posts })
-      })
-      .catch(err => {
-        this.setState({ posts: [] })
-      })
+        if (response.ok) {
+          this.setState({ posts: response.data })
+        } else {
+          this.setState({ posts: [] })
+        }
+      });
     } else {
       $(moreElement).removeClass('active');
       this.setState({
@@ -104,7 +102,7 @@ class UserListItem extends Component {
       <li className="user-item list-group-item">
         <div className="head">
           <div className="img-container">
-            <img className="avatar" src={config.apiURL + '/api/user/image?id=' + user._id} alt="avatar"/>
+            <img className="avatar" src={api.getBaseURL() + '/api/user/image?id=' + user._id} alt="avatar"/>
           </div>
           <div className="creds flex justify-content-evenly flex-direction-column align-items-start">
             <h5 className="mb-1">{user.username}</h5>

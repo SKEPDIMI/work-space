@@ -39,8 +39,21 @@ export const fetchUser = async () => {
       return setUser(user);
     }
     catch(error) {
-      console.log('Error fetching user')
       localStorage.setItem('workspaceToken', "false");
       return setUser(false);
     }
 };
+
+export const showError = message => {
+  return {
+    type: 'SHOW_ERROR',
+    payload: message
+  }
+}
+
+export const removeError = message => {
+  return {
+    type: 'REMOVE_ERROR',
+    payload: message
+  }
+}

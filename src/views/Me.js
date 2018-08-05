@@ -1,5 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
+import { showError } from '../redux/actions';
+
 import LoadingScreen from '../views/util/LoadingScreen';
 
 import $ from 'jquery';
@@ -34,7 +36,8 @@ class Me extends Component {
       }, 500)
     })
     .catch(error => {
-      $(".form-modal").removeClass('success').addClass('failure').text(error.response.data.message || 'Failed to save changes.');
+      this.props.showError(error.response.data.message);
+      $(".form-modal").removeClass('success').addClass('failure').text('Failed to save changes.');
     });
   }
   constructor(props){
@@ -108,4 +111,7 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(Me);
+export default connect(
+  mapStateToProps,
+  { showError }
+)(Me);

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import config from '../../config';
 import LoadingScreen from '../../views/util/LoadingScreen';
 import UserListItem from '../../components/UserListItem';
 import CouldNotLoad from '../../components/util/CouldNotLoad'
 
-import Axios from 'axios';
+import api from '../../api';
+
 import '../../assets/stylesheets/users.css';
 import BaseView from '../../components/util/BaseView';
 
@@ -17,17 +17,20 @@ class PopularUsers extends Component {
     };
   };
   componentDidMount() {
-    Axios.get(config.apiURL + '/api/users?limit=10')
-    .then(res => {
-      this.setState({loading: false, users: res.data})
-    })
-    .catch(err => {
-      this.setState({
-        loading: false,
-        users: false
-      });
-    })
-
+    api.get('/users?limit=10')
+    .then(response => {
+      if (response.ok) {
+        this.setState({
+          loading: false,
+          users: response.data
+        });
+      } else {
+        this.setState({
+          loading: false,
+          users: false
+        });
+      }
+    });
   }
   render(){
     return(

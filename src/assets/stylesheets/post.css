@@ -86,7 +86,7 @@
 	cursor: pointer;
 }
 .post_footer .like.pending {
-	color: rgb(158, 158, 158);
+	color: rgb(175, 175, 175);
 }
 .post_footer .like.active {
 	color:green;

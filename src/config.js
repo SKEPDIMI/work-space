@@ -4,4 +4,3 @@ let apiURL = process.env.NODE_ENV === 'production' ?
 export default {
   apiURL : apiURL
 }
-

@@ -1,6 +1,20 @@
 .space-main {
   display: inline-flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-around;
+  align-items: flex-start;
   flex-direction: row;
+}
+.space-main > .aside {
+  height: 100%;
+  margin-left: 1em;
+}
+
+@media screen and (max-width: 950px) {
+  .space-main > .aside {
+    max-width: 75%;
+    margin-bottom: 1em;
+  }
+  .space-main {
+    flex-direction: column-reverse;
+  }
 }

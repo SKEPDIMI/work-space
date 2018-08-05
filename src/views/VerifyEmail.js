@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import config from '../config';
+import { connect } from 'react-redux';
+import { showError } from '../redux/actions';
+
+import api from '../api';
+
 import BaseView from '../components/util/BaseView';
 
 class VerifyEmail extends Component {
@@ -10,16 +13,20 @@ class VerifyEmail extends Component {
       return window.location = ''
     };
 
-    Axios.get(config.apiURL + '/api/verifyEmail?id=' + TFASessionID )
+    api.get('/verifyEmail?id=' + TFASessionID )
     .then(response => {
-      this.setState({message: response.data.message + '. Redirecting...'});
-
-      localStorage.setItem('workspaceToken', JSON.stringify({ token: response.data.token }));
-      setTimeout(() => window.location = '/me', 3000)
-    })
-    .catch(err => {
-      /* Give us an error */
-      this.setState({message: err.response.data.message + '. If you think this is an error, contact customer support'});
+      if (response.ok) {
+        this.setState({
+          message: response.data.message + '. Redirecting...'
+        });
+  
+        localStorage.setItem('workspaceToken', JSON.stringify({ token: response.data.token }));
+        setTimeout(() => window.location = '/me', 3000)
+      } else {
+        this.setState({
+          message: response.data.message
+        })
+      }
     });
   }
   constructor(props){
@@ -42,4 +49,7 @@ class VerifyEmail extends Component {
   }
 };
 
-export default VerifyEmail;
+export default connect(
+  null,
+  { showError }
+)(VerifyEmail);

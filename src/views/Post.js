@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { showError } from '../redux/actions';
+
 import '../assets/stylesheets/post.css';
 
 import TimeAgo from 'react-timeago';
 import LoadingScreen from '../views/util/LoadingScreen';
 
-import Axios from 'axios';
-import config from '../config';
+import api from '../api';
 import BaseView from '../components/util/BaseView';
 import Comment from '../components/Comment';
 
@@ -20,14 +21,16 @@ class Post extends Component {
 
     this.setState({likeClass: 'like pending'});
 
-    const failure = () => {
+    const failure = (message) => {
+      this.props.showError(message);
+
       this.setState({
         likeClass: 'like'
       })
     };
 
     if (!this.state.post.likes.includes(user._id)) {
-      Axios.put(config.apiURL + '/api/posts', {
+      api.put('/posts', {
         postId,
         like: true
       }, {
@@ -36,21 +39,22 @@ class Post extends Component {
         }
       })
       .then(response => {
-        let likes = post.likes
+        if (response.ok) {
+          let likes = post.likes
 
-        this.setState({
-          likeClass: 'like active',
-          post: {
-            ...this.state.post,
-            likes: [...likes, user._id]
-          }
-        })
-      })
-      .catch((error) => {
-        failure()
+          this.setState({
+            likeClass: 'like active',
+            post: {
+              ...this.state.post,
+              likes: [...likes, user._id]
+            }
+          });
+        } else {
+          failure(response.data.message || 'Could not like post.')
+        }
       });
     } else {
-      Axios.put(config.apiURL + '/api/posts', {
+      api.put('/posts', {
         postId,
         unlike: true
       }, {
@@ -59,25 +63,29 @@ class Post extends Component {
         }
       })
       .then(response => {
-        let likes = post.likes
+        if (response.ok) {
+          let likes = post.likes
 
-        this.setState({
-          likeClass: 'like',
-          post: {
-            ...this.state.post,
-            likes: likes.filter(v => v !== user._id)
-          }
-        })
+          this.setState({
+            likeClass: 'like',
+            post: {
+              ...this.state.post,
+              likes: likes.filter(v => v !== user._id)
+            }
+          });
+        } else {
+          failure(response.data.message)
+        }
       })
-      .catch(() => {
-        failure()
+      .catch((error) => {
+        
       });
     }
   }
   componentDidMount() {
     let postId = this.props.match.params.id;
 
-    Axios.get(config.apiURL + '/api/posts?postId=' + postId, {
+    api.get('/posts?postId=' + postId, {
       headers: {
         population: JSON.stringify({
           space: 'title',
@@ -87,18 +95,21 @@ class Post extends Component {
       }
     })
     .then( response => {
-      let post = response.data;
+      if (response.ok) {
+        let post = response.data;
 
-      this.setState({
-        post,
-        likeClass: post.likes.includes(this.props.user._id) ? 'like active' : 'like'
-      })
-    })
-    .catch( error => {
-      this.setState({
-        post: false
-      })
-    })
+        this.setState({
+          post,
+          likeClass: post.likes.includes(this.props.user._id) ? 'like active' : 'like'
+        });
+      } else {
+        this.props.showError(response.data.message || 'Could not load post');
+
+        this.setState({
+          post: false
+        });
+      }
+    });
   }
   commentSubmit(event) {
     event.preventDefault();
@@ -106,17 +117,18 @@ class Post extends Component {
     let formData = new FormData(event.target);
     formData.append('postId', this.state.post._id);
 
-    Axios.put(config.apiURL + '/api/posts', formData, {
+    api.put('/posts', formData, {
       headers: {
         token: this.props.user.token
       }
     })
     .then(response => {
-      window.location.reload()
-    })
-    .catch(error => {
-      console.log(error)
-    })
+      if (response.ok) {
+        window.location.reload();
+      } else {
+        this.props.showError(response.data.message || 'Failed to save comment');
+      }
+    });
   }
   constructor(props){
     super(props);
@@ -175,7 +187,7 @@ class Post extends Component {
 
             {user ? (
               <form onSubmit={this.commentSubmit.bind(this)} >
-                <img src={config.apiURL + '/api/user/image?id=' + user._id} className="avatar"/>
+                <img src={api.getBaseURL() + '/api/user/image?id=' + user._id} className="avatar"/>
                 <div className="input_wrapper">
                   <textarea name="addComment" placeholder="Enter a comment" minLength="1" maxLength="1520"/>
                 </div>
@@ -190,4 +202,7 @@ class Post extends Component {
 const mapStateToProps = state => ({
   user: state.user
 })
-export default connect(mapStateToProps)(Post);
+export default connect(
+  mapStateToProps,
+  { showError }
+)(Post);

@@ -6,6 +6,7 @@
   "private": true,
   "dependencies": {
     "ajv": "^6.5.2",
+    "apisauce": "^0.15.2",
     "axios": "^0.18.0",
     "jquery": "^3.3.1",
     "react": "^16.4.1",
