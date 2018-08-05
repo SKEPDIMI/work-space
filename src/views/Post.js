@@ -76,20 +76,19 @@ class Post extends Component {
         } else {
           failure(response.data.message)
         }
-      })
-      .catch((error) => {
-        
       });
     }
   }
   componentDidMount() {
     let postId = this.props.match.params.id;
 
-    api.get('/posts?postId=' + postId, {
+    api.get('/posts', {
+      postId
+    }, {
       headers: {
         population: JSON.stringify({
-          space: 'title',
-          author: 'username',
+          'space': 'title',
+          'author': 'username',
           'comments.user': 'username'
         })
       }
@@ -97,6 +96,7 @@ class Post extends Component {
     .then( response => {
       if (response.ok) {
         let post = response.data;
+        console.log(post)
 
         this.setState({
           post,

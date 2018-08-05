@@ -17,7 +17,9 @@ class PopularUsers extends Component {
     };
   };
   componentDidMount() {
-    api.get('/users?limit=10')
+    api.get('/users', {
+      limit: 10
+    })
     .then(response => {
       if (response.ok) {
         this.setState({
