@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import BaseView from '../components/util/BaseView';
 import { connect } from 'react-redux';
-import config from '../config';
-import Axios from 'axios';
+import api from '../api';
 import $ from 'jquery';
 
 class PostSubmit extends Component {
@@ -25,18 +24,18 @@ class PostSubmit extends Component {
 
     formData.append('spaceId', this.props.match.params.id);
 
-    Axios.post(config.apiURL + '/api/posts', formData, {
+    api.post('/posts', formData, {
       headers: {
         token: this.props.user.token
       }
     })
-    .then( response => {
-      this.displaySuccess(response.data.message);
-      window.location = '/post/' + response.data.postId
-    })
-    .catch( error => {
-      if (!error.response.data) error.response.data.message = 'Failed to log in!'
-      this.displayError(error.response.data.message);
+    .then(response => {
+      if (response.ok) {
+        this.displaySuccess(response.data.message);
+        window.location = '/post/' + response.data.postId
+      } else {
+        this.displayError(response.data.message);
+      }
     });
   }
   constructor(props){

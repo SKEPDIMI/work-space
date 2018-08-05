@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
-import config from '../config';
 
-import axios from 'axios';
+import api from '../api';
 import { connect } from 'react-redux';
 
 import BaseView from '../components/util/BaseView';
 
 class SignIn extends Component {
   componentDidMount(){
-    if (this.props.user) {
+    if (this.props.user === true) {
       window.location = '/'
     }
   }
@@ -25,28 +24,27 @@ class SignIn extends Component {
 
     $(".form-modal").removeClass('failure').addClass('success').text('Creating Account...');
 
-    axios.post(config.apiURL+'/api/users', formData)
-      .then( response => {
+    api.post('/users', formData)
+    .then( response => {
+      if (response.ok) {
         this.displaySuccess('Almost done...');
 
         let { userId } = response.data;
 
-        axios.post(config.apiURL+'/api/verifyEmail', { userId })
+        api.post('/verifyEmail', { userId })
         .then( response => {
-          this.setState({
-            done: true
-          })
-        })
-        .catch( error => {
-          if (!error.response.data) error.response.data.message = 'Failed to log in!'
-          this.displayError(error.response.data.message);
-        })
-      })
-      .catch( error => {
-        if (!error.response.data) error.response.data.message = 'Failed to log in!'
-        this.displayError(error.response.data.message);
-      })
-
+          if (response.ok) {
+            this.setState({
+              done: true
+            })
+          } else {
+            this.displayError(response.data.message);
+          }
+        });
+      } else {
+        this.displayError(response.data.message);
+      }
+    });
   }
   constructor(props){
     super(props);

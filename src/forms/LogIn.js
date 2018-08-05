@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
-import config from '../config';
+import api from '../api';
 
-import axios from 'axios';
 import queryString from 'query-string'
 import { connect } from 'react-redux';
 
@@ -26,8 +25,12 @@ class SignIn extends Component {
     formData.append('id', this.props.user._id)
     this.displaySuccess("Logging in...")
 
-    axios.post(config.apiURL+'/api/auth', formData)
-      .then( response => {
+    api.post('/auth', formData)
+      .then(response => {
+        if (!response.ok) {
+          return this.displayError(response.data.message);
+        }
+
         localStorage.setItem('workspaceToken', JSON.stringify({token:response.data.token}));
 
         let values = queryString.parse(window.location.search);
@@ -38,7 +41,7 @@ class SignIn extends Component {
         }
       })
       .catch( error => {
-        this.displayError(error.response.data.message);
+
       })
 
   }
