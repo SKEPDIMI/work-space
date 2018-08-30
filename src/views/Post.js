@@ -35,7 +35,7 @@ class Post extends Component {
         like: true
       }, {
         headers: {
-          token: user.token
+          authorization: user.token
         }
       })
       .then(response => {
@@ -86,11 +86,7 @@ class Post extends Component {
       postId
     }, {
       headers: {
-        population: JSON.stringify({
-          'space': 'title',
-          'author': 'username',
-          'comments.user': 'username'
-        })
+        population: 'space author comments.user'
       }
     })
     .then( response => {

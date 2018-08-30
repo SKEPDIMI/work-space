@@ -23,9 +23,7 @@ class Space extends Component {
 
     if (!id) return window.location = '/popular/spaces';
 
-    await api.get('/spaces', {
-      id
-    })
+    await api.get(`/spaces/${id}`)
     .then(response => {
       if (response.ok) {
         this.setState({
@@ -44,10 +42,7 @@ class Space extends Component {
       spaceId: id
     }, {
       headers: {
-        population: JSON.stringify({
-          author: 'username',
-          space: 'title'
-        })
+        population: 'author space'
       }
     })
     .then(response => {

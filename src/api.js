@@ -3,7 +3,7 @@ import config from './config';
 
 // define the api
 const api = create({
-  baseURL: config.apiURL + '/api',
+  baseURL: config.apiURL,
   headers: {
     'Cache-Control': 'no-cache',
     'Accept': 'application/json'

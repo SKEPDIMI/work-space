@@ -11,21 +11,13 @@ import { fetchUser, setUser } from './redux/actions';
 var store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
 class App extends Component {
-  async componentDidMount() {
-    /*
-      Perhaps we need another
-      mechanism for fetching on every
-      route change in case the user's
-      session has expired.
-
-    if (store.getState().user !== 'pending') return // This line prevents the component from re-requesting the user's data on every route change
-    */
+  componentDidMount() {
     const workspaceToken = JSON.parse( // Parse the JWT that is store in localStorage
       localStorage.getItem('workspaceToken') || "false"
     );
 
-    if ( workspaceToken ) { // If there is a JWT in our local storage we want to call the fetchUser action creator, and dispatch whatever it returns to us (an action to set store.user to the usersdata, fetched from the API)
-      store.dispatch(await fetchUser());
+    if (workspaceToken) { // If there is a JWT in our local storage we want to call the fetchUser action creator, and dispatch whatever it returns to us (an action to set store.user to the usersdata, fetched from the API)
+      store.dispatch(fetchUser())
     } else { // If there is no JWT in out local storage, just set the user to false for user components to know that the user is undefined and not pending
       this.setState({ done: true });
       store.dispatch(setUser(false));

@@ -5,8 +5,7 @@ import { showError } from '../redux/actions';
 import LoadingScreen from '../views/util/LoadingScreen';
 
 import $ from 'jquery';
-import axios from 'axios';
-import config from '../config';
+import api from '../api';
 
 import '../assets/stylesheets/account.css';
 import BaseView from '../components/util/BaseView';
@@ -27,17 +26,22 @@ class Me extends Component {
     var formData = new FormData(event.target);
     formData.append('id', this.props.user._id);
 
-    axios.put(config.apiURL+'/api/users', formData)
-    .then(response => {
-      $(".form-modal").removeClass('failure').addClass('success').text('Changes have been saved.');
-      $("form button.btn-info").prop("disabled", true);
-      setTimeout(function(){
-        window.location.reload();
-      }, 500)
+    api.put('/users', formData, {
+      headers: {
+        authorization: this.props.user.token
+      }
     })
-    .catch(error => {
-      this.props.showError(error.response.data.message);
-      $(".form-modal").removeClass('success').addClass('failure').text('Failed to save changes.');
+    .then(response => {
+      if (response.ok) {
+        $(".form-modal").removeClass('failure').addClass('success').text('Changes have been saved.');
+        $("form button.btn-info").prop("disabled", true);
+        setTimeout(function(){
+          window.location.reload();
+        }, 500)
+      } else {
+        this.props.showError(response.data.message);
+        $(".form-modal").removeClass('success').addClass('failure').text(response.data.message || 'Failed to save changes.');
+      }
     });
   }
   constructor(props){
@@ -65,7 +69,7 @@ render(){
         <BaseView>
           <div className="account-dashboard">
             <header>
-              <img src={config.apiURL + "/api/user/image?id=" + this.props.user._id} className="avatar" alt="avatar"/>
+              <img src={api.getBaseURL() + "/user/image?id=" + this.props.user._id} className="avatar" alt="avatar"/>
               <div>
                 <p>{this.props.user.username}</p>
                 {this.props.user.verified ? null : <p className="text-muted">Unverified</p>}

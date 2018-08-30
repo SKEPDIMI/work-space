@@ -23,19 +23,14 @@ class UserMore extends Component { // A div that opens up and shows more info ab
         posts: 'pending'
       });
 
-      api.get('/posts', {
+      api.get(`/posts`, {
         limit: 5,
-        userId: this.props.userId
-      }, {
-        headers: {
-          population: JSON.stringify({
-            'space': 'title'
-          })
-        }
+        userId: this.props.userId,
+        population: 'space'
       })
       .then(response => {
         if (response.ok) {
-          this.setState({ posts: response.data })
+          this.setState({ posts: response.data})
         } else {
           this.setState({ posts: [] })
         }
@@ -87,6 +82,8 @@ class UserMore extends Component { // A div that opens up and shows more info ab
           <h5>This user has no posts</h5>
         </div>
       )
+    } else {
+      return <h3>There was an error loading the user's posts</h3>
     }
   }
 };

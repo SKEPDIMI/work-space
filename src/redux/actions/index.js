@@ -1,47 +1,40 @@
-import axios from "axios";
-import config from '../../config';
+import api from '../../api';
 
 export const setUser = userData => ({
   type: 'SET_USER',
   payload: userData || false
 });
 
-export const fetchPopularSpaces = () => {
-  return dispatch => {
-    dispatch({type: 'SET_POPULAR_SPACES', payload: 'pending'});
+export const fetchPopularSpaces = () => dispatch => {
+  dispatch({type: 'SET_POPULAR_SPACES', payload: 'pending'});
 
-    axios.get(config.apiURL + '/api/spaces')
-    .then((response) => {
-      dispatch({type: 'SET_POPULAR_SPACES', payload: response.data});
-    })
-    .catch((err) => {
-      dispatch({type: 'SET_POPULAR_SPACES', payload: []});
-    });
-  };
+  api.get('/spaces')
+  .then((response) => {
+    dispatch({type: 'SET_POPULAR_SPACES', payload: response.data || []});
+  });
 }
 
-export const fetchUser = async () => {
-    let workspaceToken = JSON.parse(
-      localStorage.getItem('workspaceToken') || "false"
-    );
-    if (!workspaceToken) return setUser(false);
+export const fetchUser = () => dispatch => {
+  let workspaceToken = JSON.parse(
+    localStorage.getItem('workspaceToken') || "false"
+  );
 
-    try {
-      let response = await axios.get(config.apiURL + '/api/auth', {
-        headers: {
-          token: workspaceToken.token
-        }
-      });
-      let user = response.data;
-      
-      user.token = workspaceToken.token;
+  if (!workspaceToken) return dispatch(setUser(false));
 
-      return setUser(user);
+  api.get('/auth', {}, {
+    headers: {
+      authorization: workspaceToken.token
     }
-    catch(error) {
+  }).then(response => {
+    if (response.ok) {
+    let user = response.data;
+    user.token = workspaceToken.token;
+    dispatch(setUser(user));
+    } else {
       localStorage.setItem('workspaceToken', "false");
-      return setUser(false);
+      dispatch(setUser(false));
     }
+  });
 };
 
 export const showError = message => {

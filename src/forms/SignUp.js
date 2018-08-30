@@ -29,9 +29,9 @@ class SignIn extends Component {
       if (response.ok) {
         this.displaySuccess('Almost done...');
 
-        let { userId } = response.data;
+        let { id } = response.data;
 
-        api.post('/verifyEmail', { userId })
+        api.post('/verifyEmail', { userId: id })
         .then( response => {
           if (response.ok) {
             this.setState({

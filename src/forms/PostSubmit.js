@@ -26,7 +26,7 @@ class PostSubmit extends Component {
 
     api.post('/posts', formData, {
       headers: {
-        token: this.props.user.token
+        authorization: this.props.user.token
       }
     })
     .then(response => {
