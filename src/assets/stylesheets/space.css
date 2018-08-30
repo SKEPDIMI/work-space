@@ -4,6 +4,9 @@
   align-items: flex-start;
   flex-direction: row;
 }
+.space-main .content {
+  width: 100%;
+}
 .space-main > .aside {
   height: 100%;
   margin-left: 1em;
