@@ -38,13 +38,7 @@ class Space extends Component {
       }
     });
 
-    api.get('/posts', {
-      spaceId: id
-    }, {
-      headers: {
-        population: 'author space'
-      }
-    })
+    api.get(`/spaces/${id}/posts`)
     .then(response => {
       if (response.ok) {
         this.setState({

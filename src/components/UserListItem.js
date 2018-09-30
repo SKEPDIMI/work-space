@@ -23,10 +23,8 @@ class UserMore extends Component { // A div that opens up and shows more info ab
         posts: 'pending'
       });
 
-      api.get(`/posts`, {
-        limit: 5,
-        userId: this.props.userId,
-        population: 'space'
+      api.get(`/users/${this.props.userId}/posts`, {
+        limit: 5
       })
       .then(response => {
         if (response.ok) {

@@ -25,7 +25,7 @@ class PostSubmit extends Component {
     formData.append('spaceId', this.props.match.params.id);
 
     // Use params instead!
-    api.post('/posts', formData, {
+    api.post(`/spaces/${this.props.match.params.id}/posts/`, formData, {
       headers: {
         authorization: this.props.user.token
       }

@@ -82,14 +82,8 @@ class Post extends Component {
   componentDidMount() {
     let postId = this.props.match.params.id;
 
-    api.get('/posts', {
-      postId
-    }, {
-      headers: {
-        population: 'space author comments.user'
-      }
-    })
-    .then( response => {
+    api.get(`/posts/${postId}`)
+    .then(response => {
       if (response.ok) {
         let post = response.data;
 
