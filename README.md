@@ -5,3 +5,8 @@ A platform to share educational resources amongst students
 ```
 npm start
 ```
+## TODO
+
+ - Add ability to create spaces
+ - Add ability to see spaces user follows
+ - Keep exploring ideas
