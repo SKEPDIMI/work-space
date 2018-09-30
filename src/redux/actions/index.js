@@ -1,4 +1,5 @@
 import api from '../../api';
+import localStorage from 'store';
 
 export const setUser = userData => ({
   type: 'SET_USER',
@@ -6,7 +7,7 @@ export const setUser = userData => ({
 });
 export const setUserDefault = () => ({
   type: 'SET_USER_DEFAULT'
-})
+});
 
 export const fetchPopularSpaces = () => dispatch => {
   dispatch({type: 'SET_POPULAR_SPACES', payload: 'pending'});
@@ -30,7 +31,7 @@ export const fetchUser = workspaceToken => dispatch => {
       user.token = workspaceToken.token;
       dispatch(setUser(user));
     } else {
-      localStorage.setItem('workspaceToken', 'false');
+      localStorage.setItem('workspaceToken', false);
       dispatch(setUserDefault());
     }
   });

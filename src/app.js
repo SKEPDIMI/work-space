@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import localStorage from 'store';
 import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 import { Provider } from 'react-redux';
@@ -12,9 +13,7 @@ var store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
 class App extends Component {
   componentDidMount() {
-    const workspaceToken = JSON.parse( // Parse the JWT that is store in localStorage
-      localStorage.getItem('workspaceToken') || "false"
-    );
+    const workspaceToken = localStorage.get('workspaceToken');
 
     if (workspaceToken) { // If there is a JWT in our local storage we want to call the fetchUser action creator, and dispatch whatever it returns to us (an action to set store.user to the usersdata, fetched from the API)
       store.dispatch(
