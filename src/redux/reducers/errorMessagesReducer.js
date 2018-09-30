@@ -8,8 +8,7 @@ export default (state = [], action) => {
     case "REMOVE_ERROR":
       if (state.includes(action.payload)) {
         return [
-          ...state
-          .filter(m => m !== action.payload)
+          ...state.filter(m => m !== action.payload)
         ]
       }
       return state
