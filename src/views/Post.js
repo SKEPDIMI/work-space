@@ -30,10 +30,7 @@ class Post extends Component {
     };
 
     if (!this.state.post.likes.includes(user._id)) {
-      api.put('/posts', {
-        postId,
-        like: true
-      }, {
+      api.post(`/posts/${postId}/like`, {}, {
         headers: {
           authorization: user.token
         }
@@ -54,10 +51,7 @@ class Post extends Component {
         }
       });
     } else {
-      api.put('/posts', {
-        postId,
-        unlike: true
-      }, {
+      api.delete(`/posts/${postId}/like`, {}, {
         headers: {
           token: user.token
         }
@@ -104,11 +98,10 @@ class Post extends Component {
     event.preventDefault();
 
     let formData = new FormData(event.target);
-    formData.append('postId', this.state.post._id);
 
-    api.put('/posts', formData, {
+    api.post(`/posts/${this.state.post._id}/comment`, formData, {
       headers: {
-        token: this.props.user.token
+        authorization: this.props.user.token
       }
     })
     .then(response => {
@@ -178,7 +171,7 @@ class Post extends Component {
               <form onSubmit={this.commentSubmit.bind(this)} >
                 <img src={api.getBaseURL() + '/user/image?id=' + user._id} className="avatar"/>
                 <div className="input_wrapper">
-                  <textarea name="addComment" placeholder="Enter a comment" minLength="1" maxLength="1520"/>
+                  <textarea name="content" placeholder="Enter a comment" minLength="1" maxLength="1520"/>
                 </div>
                 <button className="btn btn-info">Submit</button>
               </form>) : null}
