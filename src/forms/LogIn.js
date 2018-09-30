@@ -9,7 +9,9 @@ import BaseView from '../components/util/BaseView';
 
 class SignIn extends Component {
   componentWillMount(){
-    if (this.props.user === true) {
+    let { user } = this.props;
+
+    if (user.authenticated) {
       window.location = '/'
     }
   }
@@ -22,28 +24,26 @@ class SignIn extends Component {
   formSubmit(event){
     event.preventDefault()
     let formData = new FormData(event.target);
-    formData.append('id', this.props.user._id)
     this.displaySuccess("Logging in...")
 
+    console.log(event.target)
+    // Lets add parameters instead!
     api.post('/auth', formData)
-      .then(response => {
-        if (!response.ok) {
-          return this.displayError(response.data.message);
-        }
+    .then(response => {
+      if (!response.ok) {
+        return this.displayError(response.data.message);
+      }
 
-        localStorage.setItem('workspaceToken', JSON.stringify({token:response.data.token}));
+      localStorage.setItem('workspaceToken', JSON.stringify({token:response.data.token}));
 
-        let values = queryString.parse(window.location.search);
-        if (values.redirect) {
-          window.location = values.redirect
-        } else {
-          window.location = '/'
-        }
-      })
-      .catch( error => {
+      let values = queryString.parse(window.location.search);
 
-      })
-
+      if (values.redirect) {
+        window.location = values.redirect;
+      } else {
+        window.location = '/';
+      }
+    });
   }
   constructor(props){
     super(props);
@@ -65,16 +65,16 @@ class SignIn extends Component {
 
             <div className="col-8">
               <form onSubmit={this.formSubmit}>
-              <div className="form-group">
-              <label>Email</label>
-              <input name="email" className="form-control" type="email" placeholder="Email" required/>
-              </div>
-              <div className="form-group">
-              <label>Password</label>
-              <input name="password" className="form-control" type="password" placeholder="Password" required/>
-              </div>
+                <div className="form-group">
+                  <label>Email</label>
+                  <input name="email" className="form-control" type="email" placeholder="Email" required/>
+                </div>
+                <div className="form-group">
+                  <label>Password</label>
+                  <input name="password" className="form-control" type="password" placeholder="Password" required/>
+                </div>
 
-              <button type="submit" className="btn btn-info">Log In</button>
+                <button type="submit" className="btn btn-info">Log In</button>
               </form>
               <a href="signup">No account?</a>
             </div>

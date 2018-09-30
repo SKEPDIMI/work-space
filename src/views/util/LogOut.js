@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import LoadingScreen from './LoadingScreen';
 
-import { setUser } from '../../redux/actions';
+import { setUserDefault } from '../../redux/actions';
 import { connect } from 'react-redux';
 
 class LogOut extends Component {
   componentDidMount(){
-    this.props.setUser(false);
+    this.props.setUserDefault();
     localStorage.removeItem("workspaceToken");
     window.location = '/';
   }
@@ -19,5 +19,5 @@ class LogOut extends Component {
 
 export default connect(
   null, 
-  { setUser }
+  { setUserDefault }
 )(LogOut);

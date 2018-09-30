@@ -4,22 +4,21 @@ export const setUser = userData => ({
   type: 'SET_USER',
   payload: userData || false
 });
+export const setUserDefault = () => ({
+  type: 'SET_USER_DEFAULT'
+})
 
 export const fetchPopularSpaces = () => dispatch => {
   dispatch({type: 'SET_POPULAR_SPACES', payload: 'pending'});
 
   api.get('/spaces')
   .then((response) => {
-    dispatch({type: 'SET_POPULAR_SPACES', payload: response.data || []});
+    dispatch({type: 'SET_POPULAR_SPACES', payload: response.data});
   });
 }
 
-export const fetchUser = () => dispatch => {
-  let workspaceToken = JSON.parse(
-    localStorage.getItem('workspaceToken') || "false"
-  );
-
-  if (!workspaceToken) return dispatch(setUser(false));
+export const fetchUser = workspaceToken => dispatch => {
+  if (!workspaceToken) return dispatch(setUserDefault());
 
   api.get('/auth', {}, {
     headers: {
@@ -27,12 +26,12 @@ export const fetchUser = () => dispatch => {
     }
   }).then(response => {
     if (response.ok) {
-    let user = response.data;
-    user.token = workspaceToken.token;
-    dispatch(setUser(user));
+      let user = response.data;
+      user.token = workspaceToken.token;
+      dispatch(setUser(user));
     } else {
-      localStorage.setItem('workspaceToken', "false");
-      dispatch(setUser(false));
+      localStorage.setItem('workspaceToken', 'false');
+      dispatch(setUserDefault());
     }
   });
 };

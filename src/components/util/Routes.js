@@ -37,14 +37,14 @@ class Routes extends Component {
         <Route path="/popular/spaces" component={PopularSpaces}/>
         <Route path="/popular/users" component={PopularUsers}/>
         <Route path="/login" render={() => {
-          if (!user || user === 'pending') {
+          if (!user.authenticated) {
             return <LogIn />
           } else {
             return <Redirect to="/landing" />
           }
         }}/>
         <Route path="/signup" render={() => {
-          if (!user || user === 'pending') {
+          if (!user.authenticated) {
             return <SignUp />
           } else {
             return <Redirect to="/landing" />

@@ -24,6 +24,7 @@ class PostSubmit extends Component {
 
     formData.append('spaceId', this.props.match.params.id);
 
+    // Use params instead!
     api.post('/posts', formData, {
       headers: {
         authorization: this.props.user.token
@@ -46,7 +47,9 @@ class PostSubmit extends Component {
     this.displaySuccess = this.displaySuccess.bind(this);
   };
   render(){
-    if (!this.props.user) {
+    let { user } = this.props;
+    
+    if (!user.authenticated && !user.loading) {
       window.location = '/login?redirect=submit/' + this.props.match.params.id;
       return null
     }

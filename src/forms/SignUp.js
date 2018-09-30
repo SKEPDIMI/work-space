@@ -8,7 +8,9 @@ import BaseView from '../components/util/BaseView';
 
 class SignIn extends Component {
   componentDidMount(){
-    if (this.props.user === true) {
+    let { user } = this.props;
+
+    if (user.authenticated) {
       window.location = '/'
     }
   }
@@ -25,7 +27,7 @@ class SignIn extends Component {
     $(".form-modal").removeClass('failure').addClass('success').text('Creating Account...');
 
     api.post('/users', formData)
-    .then( response => {
+    .then(response => {
       if (response.ok) {
         this.displaySuccess('Almost done...');
 
