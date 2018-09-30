@@ -90,7 +90,7 @@ class Me extends Component {
               <hr/>
               <div className="form-group">
                 <label>Username: {user.username}</label>
-                <input name="newUsername" className="form-control" autoComplete="off" placeholder={user.username}/>
+                <input name="username" className="form-control" autoComplete="off" placeholder={user.username}/>
               </div>
               <div className="form-group">
               </div>
