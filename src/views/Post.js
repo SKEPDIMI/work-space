@@ -17,19 +17,11 @@ class Post extends Component {
     let { post } = this.state;
     let postId = this.props.match.params.id;
 
-    if (this.state.likeClass === 'like pending') return
-
-    this.setState({ likeClass: 'like pending' });
-
     const failure = (message) => {
       this.props.showError(message);
-
-      this.setState({
-        likeClass: 'like'
-      })
     };
 
-    if (!this.state.post.likes.includes(user._id)) {
+    if (!post.likes[user._id]) {
       api.post(`/posts/${postId}/like`, {}, {
         headers: {
           authorization: user.token
@@ -37,13 +29,13 @@ class Post extends Component {
       })
       .then(response => {
         if (response.ok) {
-          let likes = post.likes
+          let newLikes = post.likes;
+          newLikes[user._id] = new Date();
 
           this.setState({
-            likeClass: 'like active',
             post: {
-              ...this.state.post,
-              likes: [...likes, user._id]
+              ...post,
+              likes: newLikes
             }
           });
         } else {
@@ -53,18 +45,18 @@ class Post extends Component {
     } else {
       api.delete(`/posts/${postId}/like`, {}, {
         headers: {
-          token: user.token
+          authorization: user.token
         }
       })
       .then(response => {
         if (response.ok) {
-          let likes = post.likes
+          let newLikes = post.likes;
+          delete newLikes[user._id];
 
           this.setState({
-            likeClass: 'like',
             post: {
-              ...this.state.post,
-              likes: likes.filter(v => v !== user._id)
+              ...post,
+              likes: newLikes
             }
           });
         } else {
@@ -80,10 +72,8 @@ class Post extends Component {
     .then(response => {
       if (response.ok) {
         let post = response.data;
-
         this.setState({
-          post,
-          likeClass: post.likes.includes(this.props.user._id) ? 'like active' : 'like'
+          post
         });
       } else {
         this.props.showError(response.data.message || 'Could not load post');
@@ -116,8 +106,7 @@ class Post extends Component {
     super(props);
 
     this.state = {
-      post: 'pending',
-      likeClass: 'like pending'
+      post: 'pending'
     };
   };
   render(){
@@ -130,19 +119,19 @@ class Post extends Component {
     if (post === false) return (
       <div>
         <BaseView>
-        <div className="content-wrapper post_wrapper">
-          <a href={this.props.match.spaceId ? '/spaces?id=' + this.props.match.spaceId : '/landing' /* if the post fails to load */} className="rounded btn-link">
-            <i className="fa fa-chevron-left" /> Back
-          </a>
-          <h1>Sorry! This post could not be loaded!</h1>
-        </div>
+          <div className="content-wrapper post_wrapper">
+            <a href={this.props.match.spaceId ? '/spaces?id=' + this.props.match.spaceId : '/landing' /* if the post fails to load */} className="rounded btn-link">
+              <i className="fa fa-chevron-left" /> Back
+            </a>
+            <h1>Sorry! This post could not be loaded!</h1>
+          </div>
         </BaseView>
       </div>
     )
     return(
       <BaseView>
         <div className="content-wrapper container-fluid post_wrapper">
-          <a href={'/space?id=' + post.space._id} className="rounded btn-link"><i className="fa fa-chevron-left" /> Back to {post.space.title || null}</a>
+          <a href={'/space?id=' + post.space} className="rounded btn-link"><i className="fa fa-chevron-left" /> Back to {post.space.title || null}</a>
           <div className="post">
             <div className="post_header">
               <h3>{post.title}</h3>
@@ -153,7 +142,10 @@ class Post extends Component {
               {post.body}
             </div>
             <div className="post_footer">
-              <i className={this.state.likeClass} onClick={this.likeToggle.bind(this)}>like</i>
+              <i className={
+                post.likes[user._id] ?
+                'like active' : 'like'
+              } onClick={this.likeToggle.bind(this)}>like</i>
             </div>
           </div>
           <h4>{post.comments.length} comments on "{post.title}"</h4>
