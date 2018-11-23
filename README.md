@@ -8,5 +8,7 @@ npm start
 ## TODO
 
  - Add ability to create spaces
- - Add ability to see spaces user follows
+ - Comment / like posts
+ - Add FOLLOWERS/FOLLOWING feature
  - Keep exploring ideas
+ 
